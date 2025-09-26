@@ -1,0 +1,49 @@
+{
+  "name": "transaction-analytics-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dashboard de análisis de transacciones con React + Node.js + PostgreSQL",
+  "workspaces": [
+    "frontend",
+    "backend", 
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"yarn dev:backend\" \"yarn dev:frontend\"",
+    "dev:frontend": "yarn workspace frontend dev",
+    "dev:backend": "yarn workspace backend dev",
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test",
+    "lint": "yarn workspaces run lint",
+    "type-check": "yarn workspaces run type-check",
+    
+    "db:generate": "yarn workspace backend db:generate",
+    "db:push": "yarn workspace backend db:push", 
+    "db:migrate": "yarn workspace backend db:migrate",
+    "db:seed": "yarn workspace backend db:seed",
+    "db:studio": "yarn workspace backend db:studio",
+    "db:reset": "yarn workspace backend db:push && yarn workspace backend db:seed",
+    
+    "clean": "rm -rf */node_modules */dist */.next */build",
+    "fresh-install": "yarn clean && yarn install",
+    "setup": "yarn install && yarn db:generate && yarn db:push && yarn db:seed",
+    "check-tools": "node scripts/check-tools.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "@types/node": "^20.4.5",
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=1.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VictorVega03/datawarehouse_reportes.git"
+  },
+  "keywords": ["dashboard", "analytics", "react", "nodejs", "postgresql", "prisma", "nivo"],
+  "author": "VictorVega03",
+  "license": "MIT"
+}
