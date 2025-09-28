@@ -1,70 +1,19 @@
 // frontend/src/hooks/api/useDashboardMetrics.ts
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import apiClient, { ApiResponse } from '@/services/api/client'
+import apiClient from '@/services/api/client'
+import type { 
+  ApiResponse,
+  DashboardMetrics,
+  DashboardOverview,
+  TransactionsSummary,
+  CustomerSegmentation
+} from '@/types'
 
-// Tipos para las métricas del dashboard
-export interface DashboardMetrics {
-  totalTransactions: number
-  totalRevenue: number
-  roiAnnual: number
-  casesCompleted: number
-  uniqueCustomers: number
-  completionPercentage: number
-  averageTicket: number
-}
+// ...existing code...
 
-export interface DashboardOverview {
-  metrics: DashboardMetrics
-  cases: Array<{
-    id: string
-    name: string
-    status: 'completed' | 'in_progress' | 'pending'
-    roi: string
-    priority: 'critical' | 'high' | 'medium' | 'low'
-    description: string
-  }>
-  hourlyData: Array<{
-    hour: number
-    transactions: number
-    percentage: number
-  }>
-}
+// ...existing code...
 
-export interface TransactionsSummary {
-  totalTransactions: number
-  totalAmount: string
-  averageTicket: string
-  paymentMethods: Array<{
-    method: string
-    count: number
-    percentage: number
-    averageAmount: string
-  }>
-  topHours: Array<{
-    hour: number
-    transactions: number
-    percentage: number
-  }>
-}
-
-export interface CustomerSegmentation {
-  totalCustomers: number
-  identified: {
-    count: number
-    percentage: number
-    totalRevenue: string
-  }
-  anonymous: {
-    count: number
-    percentage: number
-    totalRevenue: string
-  }
-  vip: {
-    count: number
-    percentage: number
-    totalRevenue: string
-  }
-}
+// ...existing code...
 
 // Hook para obtener métricas principales del dashboard
 export const useDashboardMetrics = (): UseQueryResult<DashboardMetrics, Error> => {

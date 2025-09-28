@@ -1,5 +1,6 @@
 // frontend/src/services/api/client.ts
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
+import type { ApiResponse, ApiError } from '@/types'
 
 // Configuración base de la API
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
@@ -62,19 +63,7 @@ apiClient.interceptors.response.use(
 )
 
 // Tipos para las respuestas de la API
-export interface ApiResponse<T = any> {
-  success: boolean
-  data: T
-  timestamp: string
-  message?: string
-}
-
-export interface ApiError {
-  success: false
-  error: string
-  timestamp: string
-  details?: any
-}
+// ...existing code...
 
 // Cliente HTTP básico para health checks
 export const healthClient = axios.create({
