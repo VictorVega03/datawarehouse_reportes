@@ -4,7 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
-// import { router } from './routes';
+import router from './routes';
 import { logger } from './utils/logger';
 
 // Crear aplicación Express
@@ -43,7 +43,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // RUTAS
 // ===================================
 
-// Ruta simple de prueba
+// Rutas principales (incluye /api/v1/dashboard/*)
+app.use('/', router);
+
+// Ruta simple de prueba (fallback)
 app.get('/health', (_req: Request, res: Response) => {
   res.json({
     status: 'OK',

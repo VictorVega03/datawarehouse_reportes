@@ -6,82 +6,27 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Module resolution */
+    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Path mapping for absolute imports */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/pages/*": ["./src/pages/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/services/*": ["./src/services/*"],
-      "@/stores/*": ["./src/stores/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/assets/*": ["./src/assets/*"],
-      "@/styles/*": ["./src/styles/*"]
-    },
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": false,
-
-    /* Type checking */
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-
-    /* Advanced */
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": false,
 
-    /* Emit */
-    "declaration": false,
-    "sourceMap": true,
-    "removeComments": false,
-    "importHelpers": true,
-
-    /* Experimental */
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    /* Path mapping */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["../shared/src/*"]
+    }
   },
-
-  "include": [
-    "src/**/*",
-    "src/**/*.ts", 
-    "src/**/*.tsx",
-    "./vite.config.ts"
-  ],
-
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "coverage",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.spec.ts",
-    "**/*.spec.tsx"
-  ],
-
-  "references": []
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,138 +1,166 @@
-import { Request, Response } from 'express';
-import { dashboardService } from '../services/dashboard.service';
-import { logger } from '../utils/logger';
+import { Request, Response } from 'express'
+import { DashboardService } from '../services/dashboard.service'
 
-class DashboardController {
-  // Endpoint de prueba
-  testEndpoint = async (_req: Request, res: Response) => {
+export class DashboardController {
+  private dashboardService: DashboardService
+
+  constructor() {
+    this.dashboardService = new DashboardService()
+  }
+
+  // Test endpoint
+  async test(_req: Request, res: Response) {
     try {
-      logger.info('Dashboard test endpoint called');
+      const testData = {
+        success: true,
+        message: "Backend API funcionando correctamente",
+        timestamp: new Date().toISOString(),
+        version: "v1",
+        endpoints: [
+          "/api/v1/dashboard/test",
+          "/api/v1/dashboard/metrics", 
+          "/api/v1/dashboard/overview",
+          "/api/v1/dashboard/transactions/hourly",
+          "/api/v1/dashboard/transactions/summary",
+          "/api/v1/dashboard/customers/segmentation"
+        ],
+        status: {
+          database: "connected",
+          server: "running",
+          port: process.env.PORT || 3001
+        }
+      }
+
+      console.log('📡 Test endpoint called - returning test data')
       
       res.status(200).json({
-        message: '🎉 Dashboard API funcionando correctamente!',
-        service: 'Transaction Analytics Dashboard',
-        endpoint: '/api/v1/dashboard/test',
-        timestamp: new Date().toISOString(),
-        environment: process.env.NODE_ENV || 'development'
-      });
+        success: true,
+        data: testData,
+        timestamp: new Date().toISOString()
+      })
     } catch (error) {
-      logger.error('Dashboard test endpoint error:', error);
+      console.error('❌ Error in test endpoint:', error)
       res.status(500).json({
-        error: 'Error en endpoint de prueba',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
+        success: false,
+        error: 'Internal server error',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      })
     }
-  };
+  }
 
-  // Métricas principales del dashboard
-  getDashboardMetrics = async (_req: Request, res: Response) => {
+  // Dashboard metrics
+  async getMetrics(_req: Request, res: Response) {
     try {
-      logger.info('Getting dashboard metrics');
+      const metrics = await this.dashboardService.getDashboardMetrics()
       
-      const metrics = await dashboardService.getDashboardMetrics();
+      console.log('📊 Metrics endpoint called - returning dashboard metrics')
       
       res.status(200).json({
         success: true,
         data: metrics,
         timestamp: new Date().toISOString()
-      });
+      })
     } catch (error) {
-      logger.error('Error getting dashboard metrics:', error);
+      console.error('❌ Error getting dashboard metrics:', error)
       res.status(500).json({
         success: false,
-        error: 'Error al obtener métricas del dashboard',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
+        error: 'Failed to get dashboard metrics',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      })
     }
-  };
+  }
 
-  // Vista general del dashboard
-  getDashboardOverview = async (_req: Request, res: Response) => {
+  // Dashboard overview
+  async getOverview(_req: Request, res: Response) {
     try {
-      logger.info('Getting dashboard overview');
+      const overview = await this.dashboardService.getDashboardOverview()
       
-      const overview = await dashboardService.getDashboardOverview();
+      console.log('📈 Overview endpoint called - returning dashboard overview')
       
       res.status(200).json({
         success: true,
         data: overview,
         timestamp: new Date().toISOString()
-      });
+      })
     } catch (error) {
-      logger.error('Error getting dashboard overview:', error);
+      console.error('❌ Error getting dashboard overview:', error)
       res.status(500).json({
         success: false,
-        error: 'Error al obtener vista general del dashboard',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
+        error: 'Failed to get dashboard overview',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      })
     }
-  };
+  }
 
-  // Análisis por horas
-  getHourlyAnalysis = async (_req: Request, res: Response) => {
+  // Hourly transactions
+  async getHourlyTransactions(_req: Request, res: Response) {
     try {
-      logger.info('Getting hourly analysis');
+      const hourlyData = await this.dashboardService.getHourlyTransactions()
       
-      const hourlyData = await dashboardService.getHourlyAnalysis();
+      console.log('⏰ Hourly transactions endpoint called')
       
       res.status(200).json({
         success: true,
         data: hourlyData,
         timestamp: new Date().toISOString()
-      });
+      })
     } catch (error) {
-      logger.error('Error getting hourly analysis:', error);
+      console.error('❌ Error getting hourly transactions:', error)
       res.status(500).json({
         success: false,
-        error: 'Error al obtener análisis por horas',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
+        error: 'Failed to get hourly transactions',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      })
     }
-  };
+  }
 
-  // Resumen de transacciones
-  getTransactionsSummary = async (_req: Request, res: Response) => {
+  // Transactions summary  
+  async getTransactionsSummary(_req: Request, res: Response) {
     try {
-      logger.info('Getting transactions summary');
+      const summary = await this.dashboardService.getTransactionsSummary()
       
-      const summary = await dashboardService.getTransactionsSummary();
+      console.log('📋 Transactions summary endpoint called')
       
       res.status(200).json({
         success: true,
         data: summary,
         timestamp: new Date().toISOString()
-      });
+      })
     } catch (error) {
-      logger.error('Error getting transactions summary:', error);
+      console.error('❌ Error getting transactions summary:', error)
       res.status(500).json({
         success: false,
-        error: 'Error al obtener resumen de transacciones',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
+        error: 'Failed to get transactions summary',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      })
     }
-  };
+  }
 
-  // Segmentación de clientes
-  getCustomerSegmentation = async (_req: Request, res: Response) => {
+  // Customer segmentation
+  async getCustomerSegmentation(_req: Request, res: Response) {
     try {
-      logger.info('Getting customer segmentation');
+      const segmentation = await this.dashboardService.getCustomerSegmentation()
       
-      const segmentation = await dashboardService.getCustomerSegmentation();
+      console.log('👥 Customer segmentation endpoint called')
       
       res.status(200).json({
         success: true,
         data: segmentation,
         timestamp: new Date().toISOString()
-      });
+      })
     } catch (error) {
-      logger.error('Error getting customer segmentation:', error);
+      console.error('❌ Error getting customer segmentation:', error)
       res.status(500).json({
         success: false,
-        error: 'Error al obtener segmentación de clientes',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
+        error: 'Failed to get customer segmentation',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      })
     }
-  };
+  }
 }
-
-export const dashboardController = new DashboardController();
