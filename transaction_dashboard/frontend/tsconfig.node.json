@@ -5,9 +5,13 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    "noEmit": true,
+    "types": ["node"]
   },
   "include": [
-    "vite.config.ts"
+    "vite.config.ts", 
+    "postcss.config.js",
+    "tailwind.config.js"
   ]
 }

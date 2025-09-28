@@ -1,0 +1,9 @@
+// frontend/postcss.config.js
+// VERSIÓN MÍNIMA PARA PASO 3 - Solo lo esencial
+
+export default {
+  plugins: {
+    // Solo autoprefixer (viene incluido con Vite)
+    autoprefixer: {},
+  },
+}

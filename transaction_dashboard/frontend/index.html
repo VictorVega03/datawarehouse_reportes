@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Dashboard de análisis de transacciones con React, TypeScript y Nivo Charts. 2.92M transacciones analizadas con $220M+ ROI identificado." />
+    <meta name="keywords" content="dashboard, analytics, transacciones, ROI, React, TypeScript, Nivo, charts" />
+    <meta name="author" content="VictorVega03" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Transaction Analytics Dashboard" />
+    <meta property="og:description" content="Dashboard de análisis de transacciones - 2.92M transacciones • $220M+ ROI" />
+    <meta property="og:url" content="http://localhost:3000" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Transaction Analytics Dashboard" />
+    <meta property="twitter:description" content="Dashboard de análisis de transacciones - 2.92M transacciones • $220M+ ROI" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" 
+      rel="stylesheet" 
+    />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Theme -->
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="color-scheme" content="light" />
+    
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//localhost:3001" />
+    <link rel="preconnect" href="http://localhost:3001" />
+    
+    <!-- Title -->
+    <title>Transaction Analytics Dashboard</title>
+    
+    <!-- Loading styles para evitar FOUC (Flash of Unstyled Content) -->
+    <style>
+      /* Critical CSS para loading screen */
+      #root {
+        min-height: 100vh;
+      }
+      
+      .initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      
+      .loader-content {
+        text-align: center;
+        color: white;
+      }
+      
+      .loader-spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+      
+      .loader-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      
+      .loader-subtitle {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide loader when React loads */
+      .app-loaded .initial-loader {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div class="initial-loader" id="initial-loader">
+      <div class="loader-content">
+        <div class="loader-spinner"></div>
+        <h1 class="loader-title">Analytics Dashboard</h1>
+        <p class="loader-subtitle">Cargando análisis de transacciones...</p>
+      </div>
+    </div>
+    
+    <!-- React Root -->
+    <div id="root"></div>
+    
+    <!-- React App Script -->
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- ✅ CORREGIDO: Solo fallback de error, NO auto-hide -->
+    <script>
+      // Remove loader if React fails to load (fallback de emergencia)
+      setTimeout(function() {
+        const loader = document.getElementById('initial-loader');
+        if (loader && loader.style.display !== 'none') {
+          console.warn('⚠️ React tardó más de 15 segundos en cargar')
+          loader.innerHTML = `
+            <div class="loader-content">
+              <h1 class="loader-title">Error de Carga</h1>
+              <p class="loader-subtitle">No se pudo cargar la aplicación. Verifica la conexión.</p>
+              <button onclick="window.location.reload()" style="
+                background: white; 
+                color: #667eea; 
+                border: none; 
+                padding: 12px 24px; 
+                border-radius: 6px; 
+                font-weight: 600; 
+                cursor: pointer; 
+                margin-top: 20px;
+              ">
+                Reintentar
+              </button>
+            </div>
+          `;
+        }
+      }, 15000); // 15 segundos timeout (aumentado)
+    </script>
+    
+    <!-- Environment Info (Development Only) -->
+    <script>
+      if (window.location.hostname === 'localhost') {
+        console.log('%c🚀 Transaction Analytics Dashboard', 'color: #3b82f6; font-size: 16px; font-weight: bold;');
+        console.log('%cDevelopment Mode', 'color: #10b981; font-weight: bold;');
+        console.log('Frontend: http://localhost:3000');
+        console.log('Backend: http://localhost:3001');
+        console.log('Environment:', 'development');
+        console.log('%cEsperando a que React se monte...', 'color: #f59e0b;');
+      }
+    </script>
+  </body>
+</html>
