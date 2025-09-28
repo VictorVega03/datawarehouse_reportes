@@ -1,11 +1,17 @@
-import { dashboardRepository } from '../repositories/dashboard.repository';
-import { logger } from '../utils/logger';
+// backend/src/services/dashboard.service.ts - ARREGLADO
+import { dashboardRepository } from '../repositories/dashboard.repository'
+import { logger } from '../utils/logger'
 
-class DashboardService {
+export class DashboardService {
+  constructor() {
+    // Inicialización del service
+    logger.info('DashboardService initialized')
+  }
+
   // Métricas principales del dashboard
   async getDashboardMetrics() {
     try {
-      logger.info('Service: Getting dashboard metrics');
+      logger.info('Service: Getting dashboard metrics')
 
       // Por ahora, datos de ejemplo basados en tu HTML
       // Más adelante conectaremos con Prisma queries
@@ -30,19 +36,20 @@ class DashboardService {
           numeric: 29991,
           label: 'Clientes Únicos'
         }
-      };
+      }
 
-      return metrics;
+      logger.info('Service: Dashboard metrics calculated successfully')
+      return metrics
     } catch (error) {
-      logger.error('Error in getDashboardMetrics service:', error);
-      throw error;
+      logger.error('Error in getDashboardMetrics service:', error)
+      throw error
     }
   }
 
   // Vista general del dashboard
   async getDashboardOverview() {
     try {
-      logger.info('Service: Getting dashboard overview');
+      logger.info('Service: Getting dashboard overview')
 
       const overview = {
         projectProgress: {
@@ -75,19 +82,20 @@ class DashboardService {
             priority: 'Crítica'
           }
         ]
-      };
+      }
 
-      return overview;
+      logger.info('Service: Dashboard overview calculated successfully')
+      return overview
     } catch (error) {
-      logger.error('Error in getDashboardOverview service:', error);
-      throw error;
+      logger.error('Error in getDashboardOverview service:', error)
+      throw error
     }
   }
 
   // Análisis por horas
   async getHourlyAnalysis() {
     try {
-      logger.info('Service: Getting hourly analysis');
+      logger.info('Service: Getting hourly analysis')
 
       const hourlyData = {
         peakHour: '18:00-19:00h',
@@ -106,19 +114,20 @@ class DashboardService {
           { hour: '19:00', transactions: 498803, percentage: 17.1 },
           { hour: '21:00', transactions: 77038, percentage: 2.6 }
         ]
-      };
+      }
 
-      return hourlyData;
+      logger.info('Service: Hourly analysis calculated successfully')
+      return hourlyData
     } catch (error) {
-      logger.error('Error in getHourlyAnalysis service:', error);
-      throw error;
+      logger.error('Error in getHourlyAnalysis service:', error)
+      throw error
     }
   }
 
   // Resumen de transacciones
   async getTransactionsSummary() {
     try {
-      logger.info('Service: Getting transactions summary');
+      logger.info('Service: Getting transactions summary')
 
       const summary = {
         total: 2920000,
@@ -131,19 +140,20 @@ class DashboardService {
           voucher: { percentage: 10.3, transactions: 292543 }
         },
         averageTicket: 288.92
-      };
+      }
 
-      return summary;
+      logger.info('Service: Transactions summary calculated successfully')
+      return summary
     } catch (error) {
-      logger.error('Error in getTransactionsSummary service:', error);
-      throw error;
+      logger.error('Error in getTransactionsSummary service:', error)
+      throw error
     }
   }
 
   // Segmentación de clientes
   async getCustomerSegmentation() {
     try {
-      logger.info('Service: Getting customer segmentation');
+      logger.info('Service: Getting customer segmentation')
 
       const segmentation = {
         total: 29991,
@@ -163,14 +173,19 @@ class DashboardService {
           identified: '$19.9B',
           anonymous: '$2.7B'
         }
-      };
+      }
 
-      return segmentation;
+      logger.info('Service: Customer segmentation calculated successfully')
+      return segmentation
     } catch (error) {
-      logger.error('Error in getCustomerSegmentation service:', error);
-      throw error;
+      logger.error('Error in getCustomerSegmentation service:', error)
+      throw error
     }
   }
 }
 
-export const dashboardService = new DashboardService();
+// ✅ EXPORTAR INSTANCIA CORRECTAMENTE
+export const dashboardService = new DashboardService()
+
+// ✅ EXPORT DEFAULT TAMBIÉN (por si acaso)
+export default dashboardService

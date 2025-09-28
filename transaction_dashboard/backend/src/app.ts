@@ -1,90 +1,107 @@
-const express = require('express');
-import type { Request, Response, NextFunction } from 'express';
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const compression = require('compression');
-// import { router } from './routes';
-import { logger } from './utils/logger';
+// backend/src/app.ts - SOLUCIÓN COMPLETA
+import express, { Request, Response, NextFunction } from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
+import { router } from './routes'  // ✅ IMPORTAR ROUTER
+import { logger } from './utils/logger'
 
 // Crear aplicación Express
-const app = express();
+const app = express()
 
 // ===================================
-// MIDDLEWARE GLOBALES
+// MIDDLEWARE DE SEGURIDAD
 // ===================================
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: false
+}))
 
-// Seguridad básica
-app.use(helmet());
-
-// CORS - permitir requests desde frontend
+// ===================================
+// CORS CONFIGURATION
+// ===================================
+const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:3000'
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
-
-// Compresión de responses
-app.use(compression());
-
-// Logging HTTP requests
-app.use(morgan('combined', {
-  stream: {
-    write: (message: string) => logger.info(message.trim())
-  }
-}));
-
-// Parseo de JSON y URL encoded
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+  origin: corsOrigin,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}))
 
 // ===================================
-// RUTAS
+// MIDDLEWARE GENERAL
 // ===================================
-
-// Ruta simple de prueba
-app.get('/health', (_req: Request, res: Response) => {
-  res.json({
-    status: 'OK',
-    message: 'Backend funcionando correctamente',
-    timestamp: new Date().toISOString()
-  });
-});
-
-// Ruta de prueba básica
-app.get('/', (_req: Request, res: Response) => {
-  res.json({
-    message: '🚀 Transaction Analytics Dashboard API',
-    version: process.env.API_VERSION || 'v1',
-    status: 'running',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
-  });
-});
+// Comentar compression si sigue dando problemas TypeScript
+// app.use(compression())
+app.use(express.json({ limit: '10mb' }))
+app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 // ===================================
-// MANEJO DE ERRORES
+// LOGGING MIDDLEWARE  
 // ===================================
-
-// 404 - Ruta no encontrada
-app.use('*', (req: Request, res: Response) => {
-  res.status(404).json({
-    error: 'Endpoint not found',
-    path: req.originalUrl,
-    method: req.method,
-    timestamp: new Date().toISOString()
-  });
-});
-
-// Manejo global de errores
-app.use((error: any, _req: Request, res: Response, _next: NextFunction) => {
-  logger.error('Error no manejado:', error);
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const start = Date.now()
   
-  res.status(error.status || 500).json({
-    error: error.message || 'Internal Server Error',
-    ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
-  });
-});
+  res.on('finish', () => {
+    const duration = Date.now() - start
+    const logLevel = res.statusCode >= 400 ? 'warn' : 'info'
+    
+    logger[logLevel](`${req.method} ${req.originalUrl} - ${res.statusCode} - ${duration}ms`)
+  })
+  
+  next()
+})
 
-export { app };
+// ===================================
+// REGISTRO DE RUTAS PRINCIPALES
+// ===================================
+logger.info('🔧 Registrando rutas principales...')
+
+// ✅ USAR EL ROUTER CON TODAS LAS RUTAS
+app.use('/', router)
+
+logger.info('✅ Rutas registradas correctamente')
+
+// ===================================
+// MIDDLEWARE DE MANEJO DE ERRORES 404
+// ===================================
+app.use('*', (req: Request, res: Response) => {
+  logger.warn(`❌ Ruta no encontrada: ${req.method} ${req.originalUrl}`)
+  
+  res.status(404).json({
+    success: false,
+    error: 'Route not found',
+    message: `The endpoint ${req.method} ${req.originalUrl} does not exist`,
+    timestamp: new Date().toISOString(),
+    availableEndpoints: [
+      'GET /health',
+      'GET /health/detailed', 
+      'GET /health/database',
+      'GET /api',
+      'GET /api/v1/dashboard/test',
+      'GET /api/v1/dashboard/metrics',
+      'GET /api/v1/dashboard/overview',
+      'GET /api/v1/dashboard/transactions/hourly',
+      'GET /api/v1/dashboard/transactions/summary',
+      'GET /api/v1/dashboard/customers/segmentation'
+    ]
+  })
+})
+
+// ===================================
+// MIDDLEWARE DE MANEJO DE ERRORES GLOBAL
+// ===================================
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+  logger.error('❌ Error global:', error)
+  
+  const statusCode = (error as any).status || (error as any).statusCode || 500
+  
+  res.status(statusCode).json({
+    success: false,
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong',
+    timestamp: new Date().toISOString()
+  })
+})
+
+// ✅ EXPORT DEFAULT (recomendado para TypeScript)
+export default app
