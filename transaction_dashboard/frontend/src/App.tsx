@@ -1,32 +1,50 @@
-// frontend/src/App.tsx - CON LAYOUT COMPLETO
+// frontend/src/App.tsx - VERSIÓN COMPLETA CON NAVEGACIÓN DESDE SIDEBAR
 import React, { useState } from 'react'
-import { useDashboardMetrics, useApiConnectionTest } from './hooks/api/useDashboardMetrics'
-import { MainLayout } from './components/layout'
+import { useDashboardMetrics } from './hooks/api/useDashboardMetrics'
+import { MainLayout } from './components/layout/MainLayout'
+import { PatronesHorariosPage } from './pages/PatronesHorariosPage'
 import { 
   Button, 
   Card, 
   Badge, 
-  Spinner, 
-  Input, 
   Modal 
 } from './components/ui'
 
 function App() {
   const { 
     data: metrics, 
-    isLoading: metricsLoading, 
-    isError: metricsError 
+    isLoading: metricsLoading 
   } = useDashboardMetrics()
-  
-  const { 
-    data: connectionTest, 
-    isLoading: connectionLoading 
-  } = useApiConnectionTest()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState<string>('dashboard')
 
+  // Función para manejar navegación
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page)
+  }
+
+  // Si estamos en la página de patrones horarios
+  if (currentPage === 'patrones') {
+    return (
+      <MainLayout onNavigate={handleNavigate} activePage={currentPage}>
+        <div className="mb-4">
+          <Button 
+            variant="outline" 
+            onClick={() => handleNavigate('dashboard')}
+            leftIcon={<span>←</span>}
+          >
+            Volver al Dashboard
+          </Button>
+        </div>
+        <PatronesHorariosPage />
+      </MainLayout>
+    )
+  }
+
+  // Dashboard principal
   return (
-    <MainLayout>
+    <MainLayout onNavigate={handleNavigate} activePage={currentPage}>
       {/* Header Section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
@@ -37,7 +55,7 @@ function App() {
             </p>
           </div>
           <Badge variant="success" size="lg">
-            ✅ Paso 8 Completado
+            Paso 9 Completado
           </Badge>
         </div>
       </div>
@@ -89,46 +107,101 @@ function App() {
         </Card>
       </div>
 
+      {/* Quick Access to Charts */}
+      <Card className="mb-8">
+        <Card.Header>
+          <h2 className="text-xl font-semibold text-gray-800">
+            Casos de Uso - Acceso Rápido
+          </h2>
+        </Card.Header>
+        <Card.Body>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Button
+              variant="primary"
+              fullWidth
+              onClick={() => handleNavigate('patrones')}
+              leftIcon={<span>🕐</span>}
+            >
+              Ver Patrones Horarios
+            </Button>
+            <Button
+              variant="outline"
+              fullWidth
+              disabled
+              leftIcon={<span>📅</span>}
+            >
+              Control Caducidad (Próximamente)
+            </Button>
+            <Button
+              variant="outline"
+              fullWidth
+              disabled
+              leftIcon={<span>💰</span>}
+            >
+              Gestión Precios (Próximamente)
+            </Button>
+            <Button
+              variant="outline"
+              fullWidth
+              disabled
+              leftIcon={<span>👥</span>}
+            >
+              Identificación Clientes (Próximamente)
+            </Button>
+            <Button
+              variant="outline"
+              fullWidth
+              disabled
+              leftIcon={<span>📦</span>}
+            >
+              Seguimiento Inventario (Próximamente)
+            </Button>
+            <Button
+              variant="outline"
+              fullWidth
+              disabled
+              leftIcon={<span>💳</span>}
+            >
+              Métodos de Pago (Próximamente)
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         
-        {/* Connection Status */}
+        {/* Estado del Sistema */}
         <Card>
           <Card.Header>
             <h2 className="text-xl font-semibold text-gray-800">
-              🔌 Estado del Sistema
+              Estado del Sistema
             </h2>
           </Card.Header>
           <Card.Body>
-            {connectionLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <Spinner size="lg" />
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="font-medium text-gray-900">Backend API</span>
+                </div>
+                <Badge variant="success">Conectado</Badge>
               </div>
-            ) : (
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="font-medium text-gray-900">Backend API</span>
-                  </div>
-                  <Badge variant="success">Conectado</Badge>
+              <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                  <span className="font-medium text-gray-900">Base de Datos</span>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                    <span className="font-medium text-gray-900">Base de Datos</span>
-                  </div>
-                  <Badge variant="primary">Operativa</Badge>
-                </div>
-                <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                    <span className="font-medium text-gray-900">Endpoints API</span>
-                  </div>
-                  <Badge variant="primary">Funcionando</Badge>
-                </div>
+                <Badge variant="primary">Operativa</Badge>
               </div>
-            )}
+              <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+                  <span className="font-medium text-gray-900">Gráficos Nivo</span>
+                </div>
+                <Badge variant="primary">Funcionando</Badge>
+              </div>
+            </div>
           </Card.Body>
         </Card>
 
@@ -136,7 +209,7 @@ function App() {
         <Card>
           <Card.Header>
             <h2 className="text-xl font-semibold text-gray-800">
-              ⚡ Acciones Rápidas
+              Acciones Rápidas
             </h2>
           </Card.Header>
           <Card.Body>
@@ -145,8 +218,9 @@ function App() {
                 variant="primary" 
                 fullWidth
                 leftIcon={<span>📊</span>}
+                onClick={() => handleNavigate('patrones')}
               >
-                Ver Análisis Completo
+                Ver Patrones Horarios
               </Button>
               <Button 
                 variant="success" 
@@ -179,7 +253,7 @@ function App() {
       <Card>
         <Card.Header>
           <h2 className="text-xl font-semibold text-gray-800">
-            🎯 Progreso del Proyecto
+            Progreso del Proyecto
           </h2>
         </Card.Header>
         <Card.Body>
@@ -201,19 +275,27 @@ function App() {
                 <Badge variant="success">✓</Badge>
                 <span className="text-sm">Stores Zustand</span>
               </div>
-            </div>
-            <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <Badge variant="success">✓</Badge>
                 <span className="text-sm">Componentes UI Base</span>
               </div>
+            </div>
+            <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <Badge variant="success">✓</Badge>
                 <span className="text-sm">Layout Principal</span>
               </div>
               <div className="flex items-center gap-2">
-                <Badge variant="warning">⏳</Badge>
+                <Badge variant="success">✓</Badge>
                 <span className="text-sm">Primer Gráfico Nivo</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant="warning">⏳</Badge>
+                <span className="text-sm">Más Gráficos y Casos</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant="default">○</Badge>
+                <span className="text-sm">Sistema de Filtros</span>
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant="default">○</Badge>
@@ -225,14 +307,18 @@ function App() {
         <Card.Footer>
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">
-              Completado: 8/10 pasos (80%)
+              Completado: 9/12 pasos (75%)
             </span>
             <div className="flex gap-2">
               <Button size="sm" variant="outline">
                 Ver Detalles
               </Button>
-              <Button size="sm" variant="primary">
-                Continuar con Paso 9 →
+              <Button 
+                size="sm" 
+                variant="primary"
+                onClick={() => handleNavigate('patrones')}
+              >
+                Ver Gráficos
               </Button>
             </div>
           </div>
@@ -250,17 +336,29 @@ function App() {
           <div>
             <h4 className="font-semibold text-gray-900 mb-2">Estado Actual:</h4>
             <p className="text-gray-600 text-sm">
-              El sistema está completamente operativo con todas las conexiones establecidas.
+              El sistema está completamente operativo con el primer gráfico Nivo funcionando.
             </p>
           </div>
           
           <div className="bg-blue-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-blue-900 mb-2">Próximos Pasos:</h4>
+            <h4 className="font-semibold text-blue-900 mb-2">Logros del Paso 9:</h4>
             <ul className="list-disc list-inside text-sm text-blue-800 space-y-1">
-              <li>Implementar gráficos con Nivo</li>
-              <li>Crear páginas para cada caso de uso</li>
+              <li>Gráfico de barras con Nivo implementado</li>
+              <li>Datos del backend conectados correctamente</li>
+              <li>Tooltips interactivos funcionando</li>
+              <li>Página completa de Patrones Horarios</li>
+              <li>Tabla de datos detallada</li>
+              <li>Navegación desde sidebar funcional</li>
+            </ul>
+          </div>
+
+          <div className="bg-green-50 p-4 rounded-lg">
+            <h4 className="font-semibold text-green-900 mb-2">Próximos Pasos:</h4>
+            <ul className="list-disc list-inside text-sm text-green-800 space-y-1">
+              <li>Implementar más gráficos para otros casos</li>
               <li>Agregar sistema de filtros</li>
               <li>Implementar exportación de datos</li>
+              <li>Agregar más visualizaciones interactivas</li>
             </ul>
           </div>
 
@@ -268,8 +366,11 @@ function App() {
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>
               Cerrar
             </Button>
-            <Button variant="primary" onClick={() => setIsModalOpen(false)}>
-              Entendido
+            <Button variant="primary" onClick={() => {
+              setIsModalOpen(false)
+              handleNavigate('patrones')
+            }}>
+              Ver Gráficos
             </Button>
           </div>
         </div>

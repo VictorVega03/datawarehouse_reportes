@@ -1,13 +1,19 @@
 // frontend/src/components/layout/MainLayout.tsx
 import React, { useState } from 'react'
-import { Header } from './Header'  // ✅ Ya está bien
-import { Sidebar } from './Sidebar'  // ✅ Ya está bien
+import { Header } from './Header'
+import { Sidebar } from './Sidebar'
 
 interface MainLayoutProps {
   children: React.ReactNode
+  onNavigate?: (page: string) => void  // ✅ NUEVO
+  activePage?: string  // ✅ NUEVO
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC<MainLayoutProps> = ({ 
+  children,
+  onNavigate,  // ✅ NUEVO
+  activePage  // ✅ NUEVO
+}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const toggleSidebar = () => {
@@ -32,6 +38,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <Sidebar 
           isOpen={sidebarOpen}
           onClose={closeSidebar}
+          onNavigate={onNavigate}  // ✅ NUEVO
+          activePage={activePage}  // ✅ NUEVO
         />
 
         {/* Main Content */}
