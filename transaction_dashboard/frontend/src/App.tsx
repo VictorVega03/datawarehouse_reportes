@@ -1,9 +1,8 @@
-// frontend/src/App.tsx - PASO 4: Conectado con Backend
+// frontend/src/App.tsx - PASO 6 Completado
 import React from 'react'
 import { useDashboardMetrics, useApiConnectionTest } from './hooks/api/useDashboardMetrics'
 
 function App() {
-  // Hooks para obtener datos del backend
   const { 
     data: metrics, 
     isLoading: metricsLoading, 
@@ -29,10 +28,9 @@ function App() {
           Frontend ↔ Backend conectados correctamente
         </p>
 
-        {/* Card Principal con Estado de Conexión */}
         <div className="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            ✅ PASO 4 Completado - API Client Funcionando
+            ✅ PASO 6 Completado - Stores Zustand Funcionando
           </h2>
 
           {/* Estado de Conexión */}
@@ -43,7 +41,6 @@ function App() {
             
             {connectionLoading ? (
               <div className="flex items-center justify-center">
-                <div className="loading-spinner" style={{width: '20px', height: '20px'}}></div>
                 <span className="ml-2 text-gray-600">Verificando conexión...</span>
               </div>
             ) : (
@@ -83,7 +80,6 @@ function App() {
             
             {metricsLoading ? (
               <div className="flex items-center justify-center py-8">
-                <div className="loading-spinner" style={{width: '24px', height: '24px'}}></div>
                 <span className="ml-3 text-gray-600">Cargando métricas...</span>
               </div>
             ) : metricsError ? (
@@ -92,63 +88,47 @@ function App() {
                 <p className="text-red-600 text-sm">
                   {metricsErrorDetails?.message || 'Error desconocido'}
                 </p>
-                <div className="mt-3 text-xs text-red-500">
-                  <strong>Posibles soluciones:</strong>
-                  <ul className="list-disc list-inside mt-1">
-                    <li>Verificar que el backend esté corriendo en puerto 3001</li>
-                    <li>Comprobar que PostgreSQL esté funcionando</li>
-                    <li>Revisar la consola del navegador para más detalles</li>
-                  </ul>
-                </div>
               </div>
             ) : metrics ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Métrica: Total Transacciones */}
+                {/* Total Transacciones */}
                 <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
                   <div className="text-2xl font-bold">
-                    {metrics.totalTransactions?.toLocaleString() || '2.92M'}
+                    {metrics.totalTransactions?.value || '2.92M'}
                   </div>
-                  <div className="text-sm opacity-90">Total Transacciones</div>
+                  <div className="text-sm opacity-90">
+                    {metrics.totalTransactions?.label || 'Total Transacciones'}
+                  </div>
                 </div>
 
-                {/* Métrica: ROI Anual */}
+                {/* ROI Anual */}
                 <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
                   <div className="text-2xl font-bold">
-                    ${(metrics.roiAnnual || 220000000).toLocaleString()}+
+                    {metrics.annualROI?.value || '$220M+'}
                   </div>
-                  <div className="text-sm opacity-90">ROI Anual</div>
+                  <div className="text-sm opacity-90">
+                    {metrics.annualROI?.label || 'ROI Anual'}
+                  </div>
                 </div>
 
-                {/* Métrica: Clientes Únicos */}
+                {/* Clientes Únicos */}
                 <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-lg">
                   <div className="text-2xl font-bold">
-                    {(metrics.uniqueCustomers || 29991).toLocaleString()}
+                    {metrics.uniqueCustomers?.value || '29,991'}
                   </div>
-                  <div className="text-sm opacity-90">Clientes Únicos</div>
+                  <div className="text-sm opacity-90">
+                    {metrics.uniqueCustomers?.label || 'Clientes Únicos'}
+                  </div>
                 </div>
 
-                {/* Métrica: Casos Completados */}
+                {/* Casos Completados */}
                 <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-lg">
                   <div className="text-2xl font-bold">
-                    {metrics.completionPercentage || 70}%
+                    {metrics.completionRate?.value || '70%'}
                   </div>
-                  <div className="text-sm opacity-90">Casos Completados</div>
-                </div>
-
-                {/* Métrica: Ticket Promedio */}
-                <div className="bg-gradient-to-r from-teal-500 to-teal-600 text-white p-4 rounded-lg">
-                  <div className="text-2xl font-bold">
-                    ${(metrics.averageTicket || 288.92).toFixed(2)}
+                  <div className="text-sm opacity-90">
+                    {metrics.completionRate?.label || 'Casos Completados'}
                   </div>
-                  <div className="text-sm opacity-90">Ticket Promedio</div>
-                </div>
-
-                {/* Métrica: Total Revenue */}
-                <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white p-4 rounded-lg">
-                  <div className="text-2xl font-bold">
-                    ${(metrics.totalRevenue || 22635548649).toLocaleString()}
-                  </div>
-                  <div className="text-sm opacity-90">Ingresos Totales</div>
                 </div>
               </div>
             ) : (
@@ -179,15 +159,19 @@ function App() {
               </div>
               <div className="flex items-center">
                 <span className="text-green-500 mr-2">✅</span>
-                <span className="text-sm font-semibold">PASO 4: API Client - Frontend ↔ Backend</span>
+                <span className="text-sm">PASO 4: API Client</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-green-500 mr-2">✅</span>
+                <span className="text-sm">PASO 5: Types System (inline)</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-green-500 mr-2">✅</span>
+                <span className="text-sm font-semibold">PASO 6: Stores Zustand</span>
               </div>
               <div className="flex items-center">
                 <span className="text-blue-500 mr-2">⏳</span>
-                <span className="text-sm">PASO 5: Types System</span>
-              </div>
-              <div className="flex items-center">
-                <span className="text-gray-400 mr-2">⏳</span>
-                <span className="text-sm">PASO 6: Stores Zustand</span>
+                <span className="text-sm">PASO 7: Componentes UI Base</span>
               </div>
             </div>
           </div>
@@ -196,16 +180,14 @@ function App() {
           <div className="mt-6 text-left">
             <h4 className="font-semibold text-gray-800 mb-2">🚀 Próximos Pasos:</h4>
             <ol className="text-sm text-gray-600 space-y-1">
-              <li>• <strong>PASO 5:</strong> Sistema de Types TypeScript</li>
-              <li>• <strong>PASO 6:</strong> Estado global con Zustand</li>
-              <li>• <strong>PASO 7:</strong> Componentes UI base</li>
+              <li>• <strong>PASO 7:</strong> Componentes UI base (Button, Card, etc.)</li>
               <li>• <strong>PASO 8:</strong> Layout principal (Header + Sidebar)</li>
               <li>• <strong>PASO 9:</strong> Primer gráfico Nivo</li>
+              <li>• <strong>PASO 10:</strong> Dashboard completo</li>
             </ol>
           </div>
         </div>
 
-        {/* Footer */}
         <div className="text-sm text-gray-500">
           🔗 Frontend (3000) ↔ Backend (3001) ↔ PostgreSQL
         </div>
