@@ -13,8 +13,15 @@ import {
 function App() {
   const { 
     data: metrics, 
-    isLoading: metricsLoading 
+    isLoading: metricsLoading,
+    error: metricsError
   } = useDashboardMetrics()
+
+  // 🔍 DEBUG - Ver qué datos llegan
+console.log('📊 Metrics completo:', metrics)
+console.log('📊 Total Transactions:', metrics?.totalTransactions)
+console.log('📊 Loading:', metricsLoading)
+console.log('📊 Error:', metricsError)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState<string>('dashboard')
@@ -90,7 +97,9 @@ function App() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 mb-1">Clientes Únicos</p>
-              <p className="text-3xl font-bold text-purple-600">29,991</p>
+              <p className="text-3xl font-bold text-purple-600">
+  {metrics?.uniqueCustomers?.value || 'Cargando...'}
+</p>
             </div>
             <div className="text-4xl">👥</div>
           </div>
@@ -100,7 +109,9 @@ function App() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 mb-1">Casos Completados</p>
-              <p className="text-3xl font-bold text-orange-600">70%</p>
+              <p className="text-3xl font-bold text-orange-600">
+  {metrics?.completionRate?.value || 'Cargando...'}
+</p>
             </div>
             <div className="text-4xl">✅</div>
           </div>
