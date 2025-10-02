@@ -6,6 +6,7 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": ".",
+    "types": ["node"],
     
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -43,7 +44,9 @@
   },
   "include": [
     "src/**/*",
-    "prisma/**/*"
+    "prisma/**/*",
+    "test/**/*",
+    "*.ts"
   ],
   "exclude": [
     "node_modules",
