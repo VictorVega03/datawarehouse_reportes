@@ -1,24 +1,7 @@
-// backend/src/controllers/dashboard.controller.ts - IMPORT ARREGLADO
+// backend/src/controllers/dashboard.controller.ts
 import { Request, Response } from 'express'
 import { logger } from '../utils/logger'
-
-// ✅ IMPORT CORREGIDO - usar default import si named import falla
-let dashboardService: any
-
-try {
-  // Intentar import named primero
-  const serviceModule = require('../services/dashboard.service')
-  dashboardService = serviceModule.dashboardService || serviceModule.default
-  
-  if (!dashboardService) {
-    throw new Error('DashboardService not found in module')
-  }
-  
-  logger.info('✅ DashboardService imported successfully')
-} catch (error) {
-  logger.error('❌ Error importing DashboardService:', error)
-  dashboardService = null
-}
+import { dashboardService } from '../services/dashboard.service'
 
 class DashboardController {
   // Endpoint de prueba
@@ -49,15 +32,6 @@ class DashboardController {
     try {
       logger.info('📊 Getting dashboard metrics')
       
-      // Verificar que dashboardService existe y tiene el método
-      if (!dashboardService) {
-        throw new Error('DashboardService not initialized')
-      }
-      
-      if (typeof dashboardService.getDashboardMetrics !== 'function') {
-        throw new Error('getDashboardMetrics method not available')
-      }
-      
       const metrics = await dashboardService.getDashboardMetrics()
       
       logger.info('✅ Dashboard metrics retrieved successfully')
@@ -80,10 +54,6 @@ class DashboardController {
   getDashboardOverview = async (_req: Request, res: Response) => {
     try {
       logger.info('📋 Getting dashboard overview')
-      
-      if (!dashboardService || typeof dashboardService.getDashboardOverview !== 'function') {
-        throw new Error('DashboardService not properly initialized')
-      }
       
       const overview = await dashboardService.getDashboardOverview()
       
@@ -108,10 +78,6 @@ class DashboardController {
     try {
       logger.info('⏰ Getting hourly analysis')
       
-      if (!dashboardService || typeof dashboardService.getHourlyAnalysis !== 'function') {
-        throw new Error('DashboardService not properly initialized')
-      }
-      
       const hourlyData = await dashboardService.getHourlyAnalysis()
       
       logger.info('✅ Hourly analysis retrieved successfully')
@@ -135,10 +101,6 @@ class DashboardController {
     try {
       logger.info('📈 Getting transactions summary')
       
-      if (!dashboardService || typeof dashboardService.getTransactionsSummary !== 'function') {
-        throw new Error('DashboardService not properly initialized')
-      }
-      
       const summary = await dashboardService.getTransactionsSummary()
       
       logger.info('✅ Transactions summary retrieved successfully')
@@ -161,10 +123,6 @@ class DashboardController {
   getCustomerSegmentation = async (_req: Request, res: Response) => {
     try {
       logger.info('👥 Getting customer segmentation')
-      
-      if (!dashboardService || typeof dashboardService.getCustomerSegmentation !== 'function') {
-        throw new Error('DashboardService not properly initialized')
-      }
       
       const segmentation = await dashboardService.getCustomerSegmentation()
       

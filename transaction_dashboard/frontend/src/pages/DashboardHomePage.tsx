@@ -84,7 +84,7 @@ export const DashboardHomePage: React.FC = () => {
                 ) : metricsError ? (
                   <span className="text-red-600">Error</span>
                 ) : (
-                  metrics?.totalTransactions?.value || '2.92M'
+                  metrics?.totalTransactions?.value || 'N/A'
                 )}
               </p>
             </div>
@@ -102,7 +102,7 @@ export const DashboardHomePage: React.FC = () => {
                 ) : metricsError ? (
                   <span className="text-red-600">Error</span>
                 ) : (
-                  metrics?.annualROI?.value || '$220M+'
+                  metrics?.annualROI?.value || 'N/A'
                 )}
               </p>
             </div>

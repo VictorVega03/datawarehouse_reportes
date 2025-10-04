@@ -3,6 +3,7 @@
 
 import { SharedService } from '../../shared/shared.service'
 import { horariosRepository } from './horarios.repository'
+import { dashboardRepository } from '../../../repositories/dashboard.repository'
 
 export class HorariosService extends SharedService {
   constructor() {
@@ -18,7 +19,8 @@ export class HorariosService extends SharedService {
     try {
       this.logger.info('Service: Getting horarios metrics from real data')
       
-      const metrics = await horariosRepository.getDashboardMetrics()
+      // ✅ USAR dashboardRepository optimizado en lugar de horariosRepository
+      const metrics = await dashboardRepository.getDashboardMetrics()
       
       return {
         totalTransactions: {
@@ -67,7 +69,7 @@ export class HorariosService extends SharedService {
       this.logger.info('Service: Getting horarios overview from real data')
       
       const [metrics, dateRange] = await Promise.all([
-        horariosRepository.getDashboardMetrics(),
+        dashboardRepository.getDashboardMetrics(),
         horariosRepository.getDateRange()
       ])
       
@@ -279,7 +281,7 @@ export class HorariosService extends SharedService {
         paymentMethods,
         dateRange
       ] = await Promise.all([
-        horariosRepository.getDashboardMetrics(),
+        dashboardRepository.getDashboardMetrics(),
         horariosRepository.getPaymentMethodDistribution(),
         horariosRepository.getDateRange()
       ])
@@ -325,7 +327,7 @@ export class HorariosService extends SharedService {
     try {
       this.logger.info('Service: Getting customer segmentation from real data')
       
-      const metrics = await horariosRepository.getDashboardMetrics()
+      const metrics = await dashboardRepository.getDashboardMetrics()
       
       const totalCustomers = metrics.uniqueCustomers
       

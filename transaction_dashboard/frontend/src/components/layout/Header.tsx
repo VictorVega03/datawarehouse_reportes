@@ -1,6 +1,7 @@
 // frontend/src/components/layout/Header.tsx
 import React, { useState } from 'react'
 import { Badge } from '../ui/Badge'  // ✅ Ruta relativa específica
+import { useDashboardMetrics } from '../../hooks/api/useDashboardMetrics'
 
 interface HeaderProps {
   onToggleSidebar?: () => void
@@ -12,6 +13,7 @@ export const Header: React.FC<HeaderProps> = ({
   sidebarOpen = true 
 }) => {
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const { data: metrics } = useDashboardMetrics()
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
@@ -54,11 +56,15 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Center section: Stats */}
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-lg">
-            <span className="text-2xl font-bold text-blue-600">2.92M</span>
+            <span className="text-2xl font-bold text-blue-600">
+              {metrics?.totalTransactions?.value || '...'}
+            </span>
             <span className="text-sm text-gray-600">Transacciones</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-lg">
-            <span className="text-2xl font-bold text-green-600">$220M+</span>
+            <span className="text-2xl font-bold text-green-600">
+              {metrics?.annualROI?.value || '...'}
+            </span>
             <span className="text-sm text-gray-600">ROI Anual</span>
           </div>
         </div>

@@ -6,11 +6,13 @@ import type { HourlyDataPoint } from '../../hooks/api/useHourlyData'
 // Tipos inline del componente
 interface HourlyBarChartProps {
   data: HourlyDataPoint[]
+  totalTransactions: number
   height?: number
 }
 
 export const HourlyBarChart: React.FC<HourlyBarChartProps> = ({ 
-  data, 
+  data,
+  totalTransactions, 
   height = 400 
 }) => {
   // Transformar datos para Nivo
@@ -109,7 +111,7 @@ export const HourlyBarChart: React.FC<HourlyBarChartProps> = ({
             <span>Transacciones: {value.toLocaleString()}</span>
             <br />
             <span style={{ fontSize: '0.875rem', color: '#666' }}>
-              {((value / 2920000) * 100).toFixed(2)}% del total
+              {((value / totalTransactions) * 100).toFixed(2)}% del total
             </span>
           </div>
         )}

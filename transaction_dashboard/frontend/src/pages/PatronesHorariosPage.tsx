@@ -75,11 +75,11 @@ export const PatronesHorariosPage: React.FC = () => {
         <Card.Header>
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-gray-800">
-                📊 Distribución de Ventas por Hora
+              <h2 className="text-2xl font-bold text-gray-900">
+                📊 Distribución de Transacciones por Horario
               </h2>
               <p className="text-sm text-gray-600 mt-1">
-                Análisis de 2.92M transacciones por horario
+                Análisis de {(data.totalTransactions / 1000000).toFixed(2)}M transacciones por horario
               </p>
             </div>
             <div className="flex gap-2">
@@ -93,7 +93,11 @@ export const PatronesHorariosPage: React.FC = () => {
           </div>
         </Card.Header>
         <Card.Body>
-          <HourlyBarChart data={data.hourlyDistribution} height={500} />
+          <HourlyBarChart 
+            data={data.hourlyDistribution} 
+            totalTransactions={data.totalTransactions}
+            height={500} 
+          />
         </Card.Body>
       </Card>
 
