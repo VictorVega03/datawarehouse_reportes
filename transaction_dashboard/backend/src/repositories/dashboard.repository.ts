@@ -84,6 +84,7 @@ export class DashboardRepository {
     }
   }
   
+  
   /**
    * Obtiene el rango de fechas de las transacciones
    */
@@ -110,34 +111,55 @@ export class DashboardRepository {
   
   /**
    * Obtiene métricas agregadas del dashboard
+   * OPTIMIZADO: Queries separadas para evitar timeout
    */
   async getDashboardMetrics() {
     try {
-      // Usar SQL raw para mejor performance
-      const [statsResult] = await prisma.$queryRaw<Array<{
+      console.log('🔍 getDashboardMetrics: Starting optimized queries...')
+      
+      // Query 1: Métricas básicas (rápida)
+      const [basicStats] = await prisma.$queryRaw<Array<{
         total_transactions: bigint
-        unique_customers: bigint
         total_revenue: number
         avg_transaction: number
       }>>`
         SELECT 
           COUNT(*)::BIGINT as total_transactions,
-          COUNT(DISTINCT customer_id)::BIGINT as unique_customers,
           SUM(total)::DECIMAL as total_revenue,
           AVG(total)::DECIMAL as avg_transaction
+        FROM transactions
+      `
+      
+      console.log('✅ Basic stats completed')
+      
+      // Query 2: Clientes únicos (puede ser más lenta pero separada)
+      const [customerStats] = await prisma.$queryRaw<Array<{
+        unique_customers: bigint
+      }>>`
+        SELECT 
+          COUNT(DISTINCT customer_id)::BIGINT as unique_customers
         FROM transactions
         WHERE customer_id IS NOT NULL
       `
       
-      return {
-        totalTransactions: Number(statsResult.total_transactions),
-        uniqueCustomers: Number(statsResult.unique_customers),
-        totalRevenue: Number(statsResult.total_revenue || 0),
-        averageTransaction: Number(statsResult.avg_transaction || 0)
+      console.log('✅ Customer stats completed')
+      
+      const result = {
+        totalTransactions: Number(basicStats.total_transactions),
+        uniqueCustomers: Number(customerStats.unique_customers),
+        totalRevenue: Number(basicStats.total_revenue || 0),
+        averageTransaction: Number(basicStats.avg_transaction || 0)
       }
       
+      console.log('✅ getDashboardMetrics completed:', {
+        totalTransactions: result.totalTransactions,
+        uniqueCustomers: result.uniqueCustomers
+      })
+      
+      return result
+      
     } catch (error) {
-      console.error('Error in getDashboardMetrics:', error)
+      console.error('❌ Error in getDashboardMetrics:', error)
       throw error
     }
   }

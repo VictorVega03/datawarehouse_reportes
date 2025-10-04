@@ -1,20 +1,22 @@
 // frontend/src/components/layout/MainLayout.tsx
 import React, { useState } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 
-interface MainLayoutProps {
-  children: React.ReactNode
-  onNavigate?: (page: string) => void  // ✅ NUEVO
-  activePage?: string  // ✅ NUEVO
-}
-
-export const MainLayout: React.FC<MainLayoutProps> = ({ 
-  children,
-  onNavigate,  // ✅ NUEVO
-  activePage  // ✅ NUEVO
-}) => {
+/**
+ * MainLayout Component
+ * 
+ * Main application layout wrapper with:
+ * - Header with branding and user menu
+ * - Collapsible sidebar navigation
+ * - Main content area using React Router Outlet
+ * 
+ * Uses React Router for navigation instead of manual state management
+ */
+export const MainLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const location = useLocation()
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
@@ -38,14 +40,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         <Sidebar 
           isOpen={sidebarOpen}
           onClose={closeSidebar}
-          onNavigate={onNavigate}  // ✅ NUEVO
-          activePage={activePage}  // ✅ NUEVO
+          currentPath={location.pathname}
         />
 
         {/* Main Content */}
         <main className="flex-1 p-6 lg:p-8 overflow-auto">
           <div className="max-w-7xl mx-auto">
-            {children}
+            <Outlet />
           </div>
         </main>
       </div>

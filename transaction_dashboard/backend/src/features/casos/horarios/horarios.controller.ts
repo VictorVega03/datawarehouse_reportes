@@ -1,24 +1,26 @@
-// backend/src/controllers/dashboard.controller.ts
-import { Request, Response } from 'express'
-import { logger } from '../utils/logger'
-import { dashboardService } from '../services/dashboard.service'
+// backend/src/features/casos/horarios/horarios.controller.ts
+// Controller para el caso de uso: Patrones Horarios
 
-class DashboardController {
+import { Request, Response } from 'express'
+import { logger } from '../../../utils/logger'
+import { horariosService } from './horarios.service'
+
+class HorariosController {
   // Endpoint de prueba
   testEndpoint = async (_req: Request, res: Response) => {
     try {
-      logger.info('🧪 Dashboard test endpoint called')
+      logger.info('🧪 Horarios test endpoint called')
       
       res.status(200).json({
         success: true,
-        message: '🎉 Dashboard API funcionando correctamente!',
-        service: 'Transaction Analytics Dashboard',
-        endpoint: '/api/v1/dashboard/test',
+        message: '🎉 Horarios API funcionando correctamente!',
+        service: 'Patrones Horarios - Transaction Analytics',
+        endpoint: '/api/v1/casos/horarios/test',
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development'
       })
     } catch (error) {
-      logger.error('❌ Dashboard test endpoint error:', error)
+      logger.error('❌ Horarios test endpoint error:', error)
       res.status(500).json({
         success: false,
         error: 'Error en endpoint de prueba',
@@ -27,47 +29,47 @@ class DashboardController {
     }
   }
 
-  // Métricas principales del dashboard
-  getDashboardMetrics = async (_req: Request, res: Response) => {
+  // Métricas principales
+  getMetrics = async (_req: Request, res: Response) => {
     try {
-      logger.info('📊 Getting dashboard metrics')
+      logger.info('📊 Getting horarios metrics')
       
-      const metrics = await dashboardService.getDashboardMetrics()
+      const metrics = await horariosService.getMetrics()
       
-      logger.info('✅ Dashboard metrics retrieved successfully')
+      logger.info('✅ Horarios metrics retrieved successfully')
       res.status(200).json({
         success: true,
         data: metrics,
         timestamp: new Date().toISOString()
       })
     } catch (error) {
-      logger.error('❌ Error getting dashboard metrics:', error)
+      logger.error('❌ Error getting horarios metrics:', error)
       res.status(500).json({
         success: false,
-        error: 'Error al obtener métricas del dashboard',
+        error: 'Error al obtener métricas de horarios',
         message: error instanceof Error ? error.message : 'Unknown error'
       })
     }
   }
 
-  // Vista general del dashboard
-  getDashboardOverview = async (_req: Request, res: Response) => {
+  // Vista general
+  getOverview = async (_req: Request, res: Response) => {
     try {
-      logger.info('📋 Getting dashboard overview')
+      logger.info('📋 Getting horarios overview')
       
-      const overview = await dashboardService.getDashboardOverview()
+      const overview = await horariosService.getOverview()
       
-      logger.info('✅ Dashboard overview retrieved successfully')
+      logger.info('✅ Horarios overview retrieved successfully')
       res.status(200).json({
         success: true,
         data: overview,
         timestamp: new Date().toISOString()
       })
     } catch (error) {
-      logger.error('❌ Error getting dashboard overview:', error)
+      logger.error('❌ Error getting horarios overview:', error)
       res.status(500).json({
         success: false,
-        error: 'Error al obtener vista general del dashboard',
+        error: 'Error al obtener vista general de horarios',
         message: error instanceof Error ? error.message : 'Unknown error'
       })
     }
@@ -78,7 +80,7 @@ class DashboardController {
     try {
       logger.info('⏰ Getting hourly analysis')
       
-      const hourlyData = await dashboardService.getHourlyAnalysis()
+      const hourlyData = await horariosService.getHourlyAnalysis()
       
       logger.info('✅ Hourly analysis retrieved successfully')
       res.status(200).json({
@@ -101,7 +103,7 @@ class DashboardController {
     try {
       logger.info('📈 Getting transactions summary')
       
-      const summary = await dashboardService.getTransactionsSummary()
+      const summary = await horariosService.getTransactionsSummary()
       
       logger.info('✅ Transactions summary retrieved successfully')
       res.status(200).json({
@@ -124,7 +126,7 @@ class DashboardController {
     try {
       logger.info('👥 Getting customer segmentation')
       
-      const segmentation = await dashboardService.getCustomerSegmentation()
+      const segmentation = await horariosService.getCustomerSegmentation()
       
       logger.info('✅ Customer segmentation retrieved successfully')
       res.status(200).json({
@@ -143,4 +145,4 @@ class DashboardController {
   }
 }
 
-export const dashboardController = new DashboardController()
+export const horariosController = new HorariosController()

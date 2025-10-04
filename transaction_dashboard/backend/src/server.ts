@@ -35,15 +35,17 @@ async function checkDatabaseConnection(): Promise<boolean> {
 // ===================================
 async function startServer() {
   try {
-    // Verificar conexión a base de datos
-    const dbConnected = await checkDatabaseConnection()
-
-    // Iniciar servidor HTTP
-    const server = app.listen(PORT, () => {
+    logger.info('🔄 Iniciando servidor...')
+    
+    // Iniciar servidor HTTP PRIMERO (sin await)
+    const server = app.listen(PORT, async () => {
       logger.info(`🚀 Servidor corriendo en http://${HOST}:${PORT}`)
       logger.info(`📊 Dashboard API v${process.env.API_VERSION || 'v1'}`)
       logger.info(`🌍 Entorno: ${NODE_ENV}`)
       logger.info(`📱 CORS habilitado para: ${process.env.CORS_ORIGIN || 'http://localhost:3000'}`)
+      
+      // Verificar conexión a base de datos DESPUÉS de iniciar el servidor
+      const dbConnected = await checkDatabaseConnection()
       
       if (dbConnected) {
         logger.info('✅ Sistema completamente operativo')
@@ -63,6 +65,16 @@ async function startServer() {
       logger.info('   GET /api/v1/dashboard/transactions/hourly')
       logger.info('   GET /api/v1/dashboard/transactions/summary')
       logger.info('   GET /api/v1/dashboard/customers/segmentation')
+    })
+    
+    // ✅ IMPORTANTE: Manejar error del servidor
+    server.on('error', (error: any) => {
+      if (error.code === 'EADDRINUSE') {
+        logger.error(`❌ El puerto ${PORT} ya está en uso`)
+      } else {
+        logger.error('❌ Error del servidor:', error)
+      }
+      process.exit(1)
     })
 
     // ===================================

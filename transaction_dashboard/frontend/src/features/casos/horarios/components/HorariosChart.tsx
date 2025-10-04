@@ -1,16 +1,17 @@
-// frontend/src/components/charts/HourlyBarChart.tsx
+// frontend/src/features/casos/horarios/components/HorariosChart.tsx
+// Componente de gráfico para patrones horarios
+
 import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
-import type { HourlyDataPoint } from '../../hooks/api/useHourlyData'
+import type { HourlyDataPoint } from '../types'
 
-// Tipos inline del componente
-interface HourlyBarChartProps {
+interface HorariosChartProps {
   data: HourlyDataPoint[]
   totalTransactions: number
   height?: number
 }
 
-export const HourlyBarChart: React.FC<HourlyBarChartProps> = ({ 
+export const HorariosChart: React.FC<HorariosChartProps> = ({ 
   data,
   totalTransactions, 
   height = 400 
@@ -19,7 +20,7 @@ export const HourlyBarChart: React.FC<HourlyBarChartProps> = ({
   const chartData = data.map(item => ({
     hour: item.hour,
     transactions: item.transactions,
-    transactionsColor: 'hsl(217, 91%, 60%)' // Azul
+    transactionsColor: 'hsl(217, 91%, 60%)'
   }))
 
   return (
@@ -55,7 +56,6 @@ export const HourlyBarChart: React.FC<HourlyBarChartProps> = ({
           legendPosition: 'middle',
           legendOffset: -60,
           format: value => {
-            // Formatear números grandes (ej: 441878 → 441.9K)
             if (value >= 1000000) {
               return `${(value / 1000000).toFixed(1)}M`
             } else if (value >= 1000) {

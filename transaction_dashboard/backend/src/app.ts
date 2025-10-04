@@ -90,7 +90,7 @@ app.use('*', (req: Request, res: Response) => {
 // ===================================
 // MIDDLEWARE DE MANEJO DE ERRORES GLOBAL
 // ===================================
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
   logger.error('❌ Error global:', error)
   
   const statusCode = (error as any).status || (error as any).statusCode || 500
