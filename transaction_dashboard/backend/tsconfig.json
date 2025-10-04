@@ -47,7 +47,7 @@
     "prisma/**/*",
     "test/**/*",
     "*.ts"
-  ],
+, "../frontend/src/features/casos/caducidad/types.ts"  ],
   "exclude": [
     "node_modules",
     "dist",

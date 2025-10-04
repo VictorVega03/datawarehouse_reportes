@@ -2,7 +2,7 @@
 // Routes para el caso de uso: Patrones Horarios
 
 import { Router } from 'express'
-import { horariosController } from './horarios.controller'
+import { horariosController } from '../controllers/horarios.controller'
 
 const horariosRoutes = Router()
 

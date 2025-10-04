@@ -2,8 +2,8 @@
 // Controller para el caso de uso: Patrones Horarios
 
 import { Request, Response } from 'express'
-import { logger } from '../../../utils/logger'
-import { horariosService } from './horarios.service'
+import { logger } from '../utils/logger'
+import { horariosService } from '../services/horarios.service'
 
 class HorariosController {
   // Endpoint de prueba

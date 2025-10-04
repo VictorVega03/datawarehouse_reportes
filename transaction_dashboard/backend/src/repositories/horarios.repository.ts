@@ -1,7 +1,7 @@
 // backend/src/features/casos/horarios/horarios.repository.ts
 // Repository para el caso de uso: Patrones Horarios
 
-import { SharedRepository } from '../../shared/shared.repository'
+import { SharedRepository } from '../shared/shared.repository'
 
 export class HorariosRepository extends SharedRepository {
   

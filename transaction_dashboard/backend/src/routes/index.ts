@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { healthRoutes } from './health.routes';
-import { dashboardRoutes } from './api/dashboard.routes';
+import { dashboardRoutes } from './dashboard.routes';
 
 // ===================================
 // 🆕 IMPORTS DE CASOS DE USO
 // ===================================
-import { horariosRoutes } from '../features/casos/horarios/horarios.routes';
+import { horariosRoutes } from './horarios.routes';
+import { caducidadRoutes } from './caducidad.routes';
 
 const router = Router();
 
@@ -31,7 +32,7 @@ router.use(`${apiPrefix}/${apiVersion}/dashboard`, dashboardRoutes);
 router.use(`${apiPrefix}/${apiVersion}/casos/horarios`, horariosRoutes);
 
 // CASO 2: Control Caducidad ⏳ (próximamente)
-// router.use(`${apiPrefix}/${apiVersion}/casos/caducidad`, caducidadRoutes);
+router.use(`${apiPrefix}/${apiVersion}/casos/caducidad`, caducidadRoutes);
 
 // CASO 3: Gestión Precios ⏸️ (futuro)
 // router.use(`${apiPrefix}/${apiVersion}/casos/precios`, preciosRoutes);

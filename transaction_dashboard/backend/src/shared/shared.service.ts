@@ -1,7 +1,7 @@
 // backend/src/features/shared/shared.service.ts
 // Clase base para todos los servicios
 
-import { logger } from '../../utils/logger'
+import { logger } from '../utils/logger'
 
 export class SharedService {
   protected logger: typeof logger

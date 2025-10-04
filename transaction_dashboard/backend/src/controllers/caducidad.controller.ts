@@ -2,11 +2,14 @@
 // Controller para el caso de uso: Control de Caducidad
 
 import { Request, Response } from 'express'
-import { logger } from '../../../utils/logger'
-import { caducidadService } from './caducidad.service'
+import { logger } from '../utils/logger'
+import { caducidadService } from '../services/caducidad.service'
 
 class CaducidadController {
-  // Endpoint de prueba
+  // ===================================
+  // ENDPOINT DE PRUEBA
+  // ===================================
+  
   testEndpoint = async (_req: Request, res: Response) => {
     try {
       logger.info('🧪 Caducidad test endpoint called')
@@ -16,7 +19,6 @@ class CaducidadController {
         message: '🎉 Caducidad API funcionando correctamente!',
         service: 'Control de Caducidad - Transaction Analytics',
         endpoint: '/api/v1/casos/caducidad/test',
-        status: '⏳ Pendiente de implementación',
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development'
       })
@@ -30,18 +32,20 @@ class CaducidadController {
     }
   }
 
-  // Métricas principales
+  // ===================================
+  // MÉTRICAS PRINCIPALES
+  // ===================================
+  
   getMetrics = async (_req: Request, res: Response) => {
     try {
       logger.info('📊 Getting caducidad metrics')
       
-      const metrics = await caducidadService.getMetrics()
+      const metrics = await caducidadService.getExpiryMetrics()
       
       logger.info('✅ Caducidad metrics retrieved successfully')
       res.status(200).json({
         success: true,
         data: metrics,
-        status: 'pending_implementation',
         timestamp: new Date().toISOString()
       })
     } catch (error) {
@@ -54,12 +58,15 @@ class CaducidadController {
     }
   }
 
-  // Análisis de caducidad
+  // ===================================
+  // ANÁLISIS COMPLETO DE CADUCIDAD
+  // ===================================
+  
   getCaducidadAnalysis = async (_req: Request, res: Response) => {
     try {
       logger.info('📋 Getting caducidad analysis')
       
-      const analysis = await caducidadService.getCaducidadAnalysis()
+      const analysis = await caducidadService.getExpiryControl()
       
       logger.info('✅ Caducidad analysis retrieved successfully')
       res.status(200).json({
@@ -77,19 +84,25 @@ class CaducidadController {
     }
   }
 
-  // Productos críticos
+  // ===================================
+  // PRODUCTOS CRÍTICOS
+  // ===================================
+  
   getCriticalProducts = async (req: Request, res: Response) => {
     try {
+      // Obtener parámetro de días (por defecto 7)
       const daysThreshold = parseInt(req.query.days as string) || 7
       
-      logger.info(`⚠️ Getting critical products (<${daysThreshold} days)`)
+      logger.info(`⚠️ Getting critical products (threshold: ${daysThreshold} days)`)
       
       const products = await caducidadService.getCriticalProducts(daysThreshold)
       
-      logger.info('✅ Critical products retrieved successfully')
+      logger.info(`✅ Retrieved ${products.length} critical products`)
       res.status(200).json({
         success: true,
         data: products,
+        count: products.length,
+        threshold: daysThreshold,
         timestamp: new Date().toISOString()
       })
     } catch (error) {
@@ -102,14 +115,17 @@ class CaducidadController {
     }
   }
 
-  // Recomendaciones
+  // ===================================
+  // RECOMENDACIONES
+  // ===================================
+  
   getRecommendations = async (_req: Request, res: Response) => {
     try {
       logger.info('💡 Getting caducidad recommendations')
       
       const recommendations = await caducidadService.getRecommendations()
       
-      logger.info('✅ Recommendations retrieved successfully')
+      logger.info(`✅ Retrieved ${recommendations.total} recommendations`)
       res.status(200).json({
         success: true,
         data: recommendations,
@@ -126,4 +142,5 @@ class CaducidadController {
   }
 }
 
+// Exportar instancia singleton
 export const caducidadController = new CaducidadController()

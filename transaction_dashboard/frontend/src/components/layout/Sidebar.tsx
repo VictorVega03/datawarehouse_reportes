@@ -47,7 +47,7 @@ const menuItems: MenuItem[] = [
     roi: '$3.8M',
     badge: 'Próximamente',
     badgeVariant: 'warning',
-    enabled: false
+    enabled: true
   },
   {
     id: 'precios',

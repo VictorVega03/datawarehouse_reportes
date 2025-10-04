@@ -1,9 +1,9 @@
 // backend/src/features/casos/horarios/horarios.service.ts
 // Service para el caso de uso: Patrones Horarios
 
-import { SharedService } from '../../shared/shared.service'
-import { horariosRepository } from './horarios.repository'
-import { dashboardRepository } from '../../../repositories/dashboard.repository'
+import { SharedService } from '../shared/shared.service'
+import { horariosRepository } from '../repositories/horarios.repository'
+import { dashboardRepository } from '../repositories/dashboard.repository'
 
 export class HorariosService extends SharedService {
   constructor() {
