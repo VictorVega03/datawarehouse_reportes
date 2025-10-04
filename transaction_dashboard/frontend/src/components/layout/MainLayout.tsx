@@ -1,55 +1,46 @@
 // frontend/src/components/layout/MainLayout.tsx
-import React, { useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import { Header } from './Header'
-import { Sidebar } from './Sidebar'
 
-/**
- * MainLayout Component
- * 
- * Main application layout wrapper with:
- * - Header with branding and user menu
- * - Collapsible sidebar navigation
- * - Main content area using React Router Outlet
- * 
- * Uses React Router for navigation instead of manual state management
- */
-export const MainLayout: React.FC = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const location = useLocation()
+import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import { Sidebar, SidebarContext, useSidebar } from './Sidebar'
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
-  }
+function ToggleButton() {
+  const { isOpen, setIsOpen } = useSidebar()
 
-  const closeSidebar = () => {
-    setSidebarOpen(false)
-  }
+  if (isOpen) return null
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <Header 
-        onToggleSidebar={toggleSidebar}
-        sidebarOpen={sidebarOpen}
-      />
+    <button
+      onClick={() => setIsOpen(true)}
+      className="fixed left-4 top-4 z-50 bg-blue-600 text-white p-3 rounded-lg shadow-lg hover:bg-blue-700 transition-all"
+      aria-label="Abrir menú"
+      title="Abrir menú lateral"
+    >
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  )
+}
 
-      {/* Main Container */}
-      <div className="flex">
+export function MainLayout() {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <SidebarContext.Provider value={{ isOpen, setIsOpen }}>
+      <div className="flex min-h-screen bg-gray-50">
         {/* Sidebar */}
-        <Sidebar 
-          isOpen={sidebarOpen}
-          onClose={closeSidebar}
-          currentPath={location.pathname}
-        />
+        <Sidebar />
 
         {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8 overflow-auto">
-          <div className="max-w-7xl mx-auto">
-            <Outlet />
-          </div>
+        <main className="flex-1 transition-all duration-300 ease-in-out overflow-x-hidden">
+          {/* Botón para abrir sidebar cuando está cerrado */}
+          <ToggleButton />
+          
+          {/* Contenido de las rutas */}
+          <Outlet />
         </main>
       </div>
-    </div>
+    </SidebarContext.Provider>
   )
 }

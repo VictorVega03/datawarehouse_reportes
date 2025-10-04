@@ -109,7 +109,7 @@ export function CaducidadBarChart({ data }: CaducidadBarChartProps) {
               ]
             }
           ]}
-          tooltip={({ id, value, indexValue, data }) => (
+          tooltip={({ id, value, data }) => (
             <div className="bg-white px-3 py-2 shadow-lg rounded border border-gray-200">
               <div className="font-semibold text-gray-900">
                 {data.categoriaCompleta}

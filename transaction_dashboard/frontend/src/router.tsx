@@ -1,8 +1,8 @@
 // frontend/src/router.tsx
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { MainLayout } from './components/layout/MainLayout'
+import { DashboardHomePage } from './features/dashboard'
 import { HorariosPage } from './features/casos/horarios'
-import { DashboardHomePage } from './pages'
 import { CaducidadPage } from './features/casos/caducidad/pages/CaducidadPage'
 
 /**

@@ -1,10 +1,10 @@
 // frontend/src/components/charts/HourlyMetrics.tsx
 import React from 'react'
 import { Card } from '../ui/Card'
-import type { HourlyAnalysis } from '../../hooks/api/useHourlyData'
+import type { HorariosAnalysis } from '../../features/casos/horarios'
 
 interface HourlyMetricsProps {
-  data: HourlyAnalysis
+  data: HorariosAnalysis
 }
 
 export const HourlyMetrics: React.FC<HourlyMetricsProps> = ({ data }) => {

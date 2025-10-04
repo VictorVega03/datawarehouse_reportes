@@ -1,13 +1,13 @@
-// frontend/src/pages/DashboardHomePage.tsx
+// frontend/src/features/dashboard/pages/DashboardHomePage.tsx
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDashboardMetrics } from '../hooks/api/useDashboardMetrics'
+import { useDashboardMetrics } from '../hooks/useDashboardMetrics'
 import { 
   Button, 
   Card, 
   Badge, 
   Modal 
-} from '../components/ui'
+} from '../../../components/ui'
 
 /**
  * DashboardHomePage Component

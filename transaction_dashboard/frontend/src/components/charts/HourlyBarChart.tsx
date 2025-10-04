@@ -1,7 +1,7 @@
 // frontend/src/components/charts/HourlyBarChart.tsx
 import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
-import type { HourlyDataPoint } from '../../hooks/api/useHourlyData'
+import type { HourlyDataPoint } from '../../features/casos/horarios'
 
 // Tipos inline del componente
 interface HourlyBarChartProps {

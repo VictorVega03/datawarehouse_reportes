@@ -1,7 +1,7 @@
 // frontend/src/components/layout/Header.tsx
 import React, { useState } from 'react'
 import { Badge } from '../ui/Badge'  // ✅ Ruta relativa específica
-import { useDashboardMetrics } from '../../hooks/api/useDashboardMetrics'
+import { useDashboardMetrics } from '../../features/dashboard'
 
 interface HeaderProps {
   onToggleSidebar?: () => void

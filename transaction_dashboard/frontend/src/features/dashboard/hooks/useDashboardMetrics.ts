@@ -1,104 +1,15 @@
-// frontend/src/hooks/api/useDashboardMetrics.ts
+// frontend/src/features/dashboard/hooks/useDashboardMetrics.ts
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import apiClient from '../../services/api/client'
-
-// Tipos definidos directamente aquí
-interface ApiResponse<T = any> {
-  success: boolean
-  data: T
-  timestamp: string
-}
-
-interface DashboardMetric {
-  value: string
-  numeric: number
-  label: string
-}
-
-interface DashboardMetrics {
-  totalTransactions: DashboardMetric
-  annualROI: DashboardMetric
-  completionRate: DashboardMetric
-  uniqueCustomers: DashboardMetric
-}
-
-interface DashboardOverview {
-  projectProgress: {
-    completed: number
-    pending: number
-    percentage: number
-  }
-  roiConsolidated: {
-    min: number
-    max: number
-    paybackMonths: string
-  }
-  useCases: Array<{
-    name: string
-    status: string
-    roi: string
-    priority: string
-  }>
-}
-
-interface HourlyDistribution {
-  hour: string
-  transactions: number
-  percentage: number
-}
-
-interface HourlyAnalysis {
-  peakHour: string
-  peakPercentage: number
-  concentration: {
-    hours: number
-    percentage: number
-  }
-  peakValleDifference: number
-  potentialROI: string
-  hourlyDistribution: HourlyDistribution[]
-}
-
-interface PaymentMethod {
-  percentage: number
-  transactions: number
-}
-
-interface TransactionsSummary {
-  total: number
-  dailyAverage: number
-  weeklyTrend: string
-  monthlyTrend: string
-  paymentMethods: {
-    creditCard: PaymentMethod
-    cash: PaymentMethod
-    voucher: PaymentMethod
-  }
-  averageTicket: number
-}
-
-interface CustomerSegment {
-  count: number
-  percentage: number
-}
-
-interface CustomerSegmentation {
-  total: number
-  identified: CustomerSegment
-  anonymous: CustomerSegment
-  vip: CustomerSegment
-  revenue: {
-    identified: string
-    anonymous: string
-  }
-}
-
-interface ConnectionStatus {
-  backend: boolean
-  database: boolean
-  api: boolean
-  timestamp: string
-}
+import apiClient from '../../../services/api/client'
+import type {
+  ApiResponse,
+  DashboardMetrics,
+  DashboardOverview,
+  HourlyAnalysis,
+  TransactionsSummary,
+  CustomerSegmentation,
+  ConnectionStatus
+} from '../types'
 
 export const useDashboardMetrics = (): UseQueryResult<DashboardMetrics, Error> => {
   return useQuery({

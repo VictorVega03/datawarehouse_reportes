@@ -10,6 +10,8 @@ interface CriticalProductsTableProps {
 export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
   const [filter, setFilter] = useState<'all' | 'vencido' | 'critico' | 'urgente'>('all')
   const [searchTerm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
 
   // Validar que data existe antes de filtrar
   if (!data || data.length === 0) {
@@ -33,6 +35,23 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
                          product.lote.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesFilter && matchesSearch
   })
+
+  // Calcular paginación
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const paginatedData = filteredData.slice(startIndex, endIndex)
+
+  // Resetear a página 1 cuando cambien los filtros
+  const handleFilterChange = (newFilter: typeof filter) => {
+    setFilter(newFilter)
+    setCurrentPage(1)
+  }
+
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term)
+    setCurrentPage(1)
+  }
 
   // Función para obtener color según urgencia
   const getUrgencyColor = (urgencia: string) => {
@@ -90,7 +109,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
               type="text"
               placeholder="Buscar por nombre, categoría o lote..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -99,7 +118,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
         {/* Filtros */}
         <div className="flex gap-2 mt-4">
           <button
-            onClick={() => setFilter('all')}
+            onClick={() => handleFilterChange('all')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === 'all'
                 ? 'bg-blue-600 text-white'
@@ -109,7 +128,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
             Todos ({data.length})
           </button>
           <button
-            onClick={() => setFilter('vencido')}
+            onClick={() => handleFilterChange('vencido')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === 'vencido'
                 ? 'bg-red-600 text-white'
@@ -119,7 +138,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
             Vencidos ({data.filter(p => p.urgencia.toLowerCase() === 'vencido').length})
           </button>
           <button
-            onClick={() => setFilter('critico')}
+            onClick={() => handleFilterChange('critico')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === 'critico'
                 ? 'bg-orange-600 text-white'
@@ -129,7 +148,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
             Críticos ({data.filter(p => p.urgencia.toLowerCase() === 'crítico').length})
           </button>
           <button
-            onClick={() => setFilter('urgente')}
+            onClick={() => handleFilterChange('urgente')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === 'urgente'
                 ? 'bg-yellow-600 text-white'
@@ -177,7 +196,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
                 </td>
               </tr>
             ) : (
-              filteredData.map((product, index) => (
+              paginatedData.map((product, index) => (
                 <tr key={index} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
@@ -214,16 +233,77 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
         </table>
       </div>
 
-      {/* Footer con estadísticas */}
+      {/* Footer con paginación */}
       {filteredData.length > 0 && (
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-          <div className="flex items-center justify-between text-sm text-gray-600">
-            <div>
-              Mostrando <strong>{filteredData.length}</strong> de <strong>{data.length}</strong> productos
+          <div className="flex items-center justify-between">
+            {/* Info de resultados */}
+            <div className="text-sm text-gray-600">
+              Mostrando <strong>{startIndex + 1}</strong> a <strong>{Math.min(endIndex, filteredData.length)}</strong> de <strong>{filteredData.length}</strong> productos
+              {filteredData.length !== data.length && (
+                <span className="text-gray-500"> (filtrados de {data.length} totales)</span>
+              )}
             </div>
-            <div className="text-xs">
-              Última actualización: {new Date().toLocaleTimeString('es-MX')}
-            </div>
+
+            {/* Controles de paginación */}
+            {totalPages > 1 && (
+              <div className="flex items-center space-x-2">
+                {/* Botón anterior */}
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Anterior
+                </button>
+
+                {/* Números de página */}
+                <div className="flex space-x-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
+                    // Mostrar solo páginas relevantes
+                    if (
+                      page === 1 ||
+                      page === totalPages ||
+                      (page >= currentPage - 1 && page <= currentPage + 1)
+                    ) {
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                            currentPage === page
+                              ? 'bg-blue-600 text-white'
+                              : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      )
+                    } else if (
+                      page === currentPage - 2 ||
+                      page === currentPage + 2
+                    ) {
+                      return <span key={page} className="px-2 text-gray-500">...</span>
+                    }
+                    return null
+                  })}
+                </div>
+
+                {/* Botón siguiente */}
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Siguiente
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Timestamp */}
+          <div className="mt-3 text-xs text-gray-500 text-center">
+            Última actualización: {new Date().toLocaleTimeString('es-MX')}
           </div>
         </div>
       )}
