@@ -1,17 +1,17 @@
-import { SharedRepository } from '../features/shared/shared.repository'
+// backend/src/features/casos/horarios/horarios.repository.ts
+// Repository para el caso de uso: Patrones Horarios
 
-// ✅ EXTENDER SharedRepository para reutilizar código
-export class DashboardRepository extends SharedRepository {
+import { SharedRepository } from '../../shared/shared.repository'
+
+export class HorariosRepository extends SharedRepository {
   
   // ==========================================
-  // MÉTODOS ESPECÍFICOS (no duplicados)
+  // PATRONES HORARIOS - QUERIES
   // ==========================================
-  // Los métodos heredados de SharedRepository:
-  // - getHourlyDistribution()
-  // - getDashboardMetrics()
-  // - getDateRange()
-  // - getPaymentMethodDistribution()
-  // - checkDatabaseHealth()
+  // ✅ getHourlyDistribution() heredado de SharedRepository
+  // ✅ getDashboardMetrics() heredado de SharedRepository
+  // ✅ getDateRange() heredado de SharedRepository
+  // ✅ getPaymentMethodDistribution() heredado de SharedRepository
   
   /**
    * Obtiene estadísticas de transacciones por día de la semana
@@ -47,10 +47,6 @@ export class DashboardRepository extends SharedRepository {
     }
   }
   
-  // ✅ getDateRange() heredado de SharedRepository
-  // ✅ getDashboardMetrics() heredado de SharedRepository
-  // ✅ getPaymentMethodDistribution() heredado de SharedRepository
-  
   /**
    * Obtiene transacciones en un rango horario específico
    */
@@ -77,8 +73,9 @@ export class DashboardRepository extends SharedRepository {
       throw error
     }
   }
-  // ✅ checkDatabaseHealth() heredado de SharedRepository
+  
+  // Métodos específicos de horarios pueden agregarse aquí en el futuro
 }
 
 // Exportar instancia singleton
-export const dashboardRepository = new DashboardRepository()
+export const horariosRepository = new HorariosRepository()

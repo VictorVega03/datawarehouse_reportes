@@ -1,22 +1,23 @@
 // frontend/src/components/layout/Sidebar.tsx
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Badge } from '../ui/Badge'
 
 interface SidebarProps {
   isOpen: boolean
   onClose?: () => void
-  onNavigate?: (page: string) => void  // ✅ NUEVO
-  activePage?: string  // ✅ NUEVO
+  currentPath: string
 }
 
 interface MenuItem {
   id: string
   title: string
   icon: string
+  path: string
   badge?: string
   badgeVariant?: 'default' | 'primary' | 'success' | 'warning' | 'danger'
   roi?: string
-  enabled?: boolean  // ✅ NUEVO
+  enabled: boolean
 }
 
 const menuItems: MenuItem[] = [
@@ -24,88 +25,104 @@ const menuItems: MenuItem[] = [
     id: 'dashboard',
     title: 'Dashboard Principal',
     icon: '📊',
+    path: '/',
     badge: 'Activo',
     badgeVariant: 'success',
-    enabled: true  // ✅ NUEVO
+    enabled: true
   },
   {
-    id: 'patrones',
+    id: 'horarios',
     title: 'Patrones Horarios',
     icon: '🕐',
+    path: '/casos/horarios',
     roi: '$6.7M',
     badgeVariant: 'primary',
-    enabled: true  // ✅ NUEVO
+    enabled: true
   },
   {
-    id: 'caso2',
+    id: 'caducidad',
     title: 'Control Caducidad',
     icon: '📅',
+    path: '/casos/caducidad',
     roi: '$3.8M',
-    badge: '5.5K lotes',
+    badge: 'Próximamente',
     badgeVariant: 'warning',
-    enabled: false  // ✅ NUEVO
+    enabled: false
   },
   {
-    id: 'caso3',
+    id: 'precios',
     title: 'Gestión Precios',
     icon: '💰',
+    path: '/casos/precios',
     roi: '$150M',
-    badge: 'Crítico',
-    badgeVariant: 'danger',
-    enabled: false  // ✅ NUEVO
+    badge: 'Próximamente',
+    badgeVariant: 'warning',
+    enabled: false
   },
   {
-    id: 'caso4',
+    id: 'clientes',
     title: 'Identificación Clientes',
     icon: '👥',
+    path: '/casos/clientes',
     roi: '$1.35B',
-    badgeVariant: 'primary',
-    enabled: false  // ✅ NUEVO
+    badge: 'Próximamente',
+    badgeVariant: 'warning',
+    enabled: false
   },
   {
-    id: 'caso5',
+    id: 'inventario',
     title: 'Seguimiento Inventario',
     icon: '📦',
+    path: '/casos/inventario',
     roi: '$56.3M',
-    badge: '38% crítico',
+    badge: 'Próximamente',
     badgeVariant: 'warning',
-    enabled: false  // ✅ NUEVO
+    enabled: false
   },
   {
-    id: 'caso6',
+    id: 'pagos',
     title: 'Métodos de Pago',
     icon: '💳',
-    badge: 'Control',
-    badgeVariant: 'default',
-    enabled: false  // ✅ NUEVO
+    path: '/casos/pagos',
+    badge: 'Próximamente',
+    badgeVariant: 'warning',
+    enabled: false
   },
   {
-    id: 'caso7',
+    id: 'devoluciones',
     title: 'Control Devoluciones',
     icon: '↩️',
+    path: '/casos/devoluciones',
     roi: '$1.13B',
-    badgeVariant: 'success',
-    enabled: false  // ✅ NUEVO
+    badge: 'Próximamente',
+    badgeVariant: 'warning',
+    enabled: false
   }
 ]
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
   isOpen, 
   onClose,
-  onNavigate,  // ✅ NUEVO
-  activePage = 'dashboard'  // ✅ NUEVO
+  currentPath
 }) => {
-  const handleItemClick = (id: string, enabled: boolean) => {
-    if (!enabled) return  // No hacer nada si está deshabilitado
-    
-    if (onNavigate) {
-      onNavigate(id)
-    }
+  const navigate = useNavigate()
+
+  const handleItemClick = (item: MenuItem) => {
+    if (!item.enabled) return
+
+    navigate(item.path)
     
     // En mobile, cerrar sidebar al seleccionar
     if (window.innerWidth < 1024 && onClose) {
       onClose()
     }
+  }
+
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return currentPath === '/'
+    }
+    return currentPath.startsWith(path)
   }
 
   return (
@@ -154,12 +171,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {menuItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => handleItemClick(item.id, item.enabled || false)}
+                onClick={() => handleItemClick(item)}
                 disabled={!item.enabled}
                 className={`
                   w-full flex items-center gap-3 px-4 py-3 rounded-lg
                   transition-all duration-200
-                  ${activePage === item.id
+                  ${isActive(item.path)
                     ? 'bg-blue-50 text-blue-700 font-semibold'
                     : item.enabled
                     ? 'text-gray-700 hover:bg-gray-50 cursor-pointer'
@@ -173,11 +190,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   {item.roi && (
                     <div className="text-xs text-gray-500 font-normal">
                       ROI: {item.roi}
-                    </div>
-                  )}
-                  {!item.enabled && (
-                    <div className="text-xs text-gray-400 font-normal">
-                      Próximamente
                     </div>
                   )}
                 </div>
@@ -217,11 +229,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div className="text-xs text-gray-600 space-y-1">
               <div className="flex justify-between">
                 <span>Total Casos:</span>
-                <span className="font-semibold">7/10</span>
+                <span className="font-semibold">1/7</span>
               </div>
               <div className="flex justify-between">
                 <span>Completitud:</span>
-                <span className="font-semibold text-green-600">70%</span>
+                <span className="font-semibold text-green-600">14%</span>
               </div>
               <div className="flex justify-between">
                 <span>ROI Total:</span>

@@ -11,9 +11,5 @@ export {
   useDashboardData,
 } from './useDashboardMetrics'
 
-export type {
-  DashboardMetrics,
-  DashboardOverview,
-  TransactionsSummary,
-  CustomerSegmentation,
-} from './useDashboardMetrics'
+// Note: Types are not exported from useDashboardMetrics.ts
+// If needed, they should be moved to a separate types file

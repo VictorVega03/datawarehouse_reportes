@@ -105,10 +105,18 @@ export const useDashboardMetrics = (): UseQueryResult<DashboardMetrics, Error> =
     queryKey: ['dashboard', 'metrics'],
     queryFn: async (): Promise<DashboardMetrics> => {
       const response = await apiClient.get<ApiResponse<DashboardMetrics>>('/dashboard/metrics')
-      if (!response.data.success) {
+      console.log('🔍 useDashboardMetrics - Full Response:', response)
+      console.log('🔍 useDashboardMetrics - Response Data:', response.data)
+      
+      if (!response.data?.success) {
         throw new Error('Failed to fetch dashboard metrics')
       }
-      return response.data.data
+      
+      // Si response.data ya es el objeto con success y data, extraer data
+      // Si no, asumir que response.data ya es el data que necesitamos
+      const metrics = response.data.data || response.data
+      console.log('🔍 useDashboardMetrics - Extracted Metrics:', metrics)
+      return metrics as DashboardMetrics
     },
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,

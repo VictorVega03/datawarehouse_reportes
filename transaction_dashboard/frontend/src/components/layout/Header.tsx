@@ -1,8 +1,6 @@
 // frontend/src/components/layout/Header.tsx
-// frontend/src/components/layout/Header.tsx
 import React, { useState } from 'react'
 import { Badge } from '../ui/Badge'  // ✅ Ruta relativa específica
-import { Button } from '../ui/Button'  // ✅ Ruta relativa específica
 
 interface HeaderProps {
   onToggleSidebar?: () => void
