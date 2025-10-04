@@ -1,5 +1,5 @@
 // frontend/src/features/casos/horarios/components/HorariosChart.tsx
-// Componente de gráfico para patrones horarios
+// Componente de gráfico para patrones horarios con colores mejorados
 
 import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
@@ -16,11 +16,34 @@ export const HorariosChart: React.FC<HorariosChartProps> = ({
   totalTransactions, 
   height = 400 
 }) => {
-  // Transformar datos para Nivo
+  // Función para obtener color según la hora del día
+  const getColorByHour = (hour: string): string => {
+    const hourNum = parseInt(hour.replace(':00', ''))
+    
+    // Madrugada (0-5): Azul oscuro/morado
+    if (hourNum >= 0 && hourNum < 6) return '#667eea'
+    
+    // Mañana temprano (6-9): Naranja/Amarillo
+    if (hourNum >= 6 && hourNum < 10) return '#fbbf24'
+    
+    // Media mañana (10-12): Verde
+    if (hourNum >= 10 && hourNum < 12) return '#34d399'
+    
+    // Tarde (12-17): Azul cielo
+    if (hourNum >= 12 && hourNum < 17) return '#60a5fa'
+    
+    // Tarde-noche (17-20): Naranja
+    if (hourNum >= 17 && hourNum < 20) return '#fb923c'
+    
+    // Noche (20-24): Morado oscuro
+    return '#a78bfa'
+  }
+
+  // Transformar datos para Nivo con colores personalizados
   const chartData = data.map(item => ({
     hour: item.hour,
     transactions: item.transactions,
-    transactionsColor: 'hsl(217, 91%, 60%)'
+    transactionsColor: getColorByHour(item.hour)
   }))
 
   return (
@@ -33,11 +56,15 @@ export const HorariosChart: React.FC<HorariosChartProps> = ({
         padding={0.3}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'blues' }}
+        colors={(bar) => {
+          const colorKey = `${bar.id}Color` as keyof typeof bar.data
+          return bar.data[colorKey] as string
+        }}
         borderColor={{
           from: 'color',
-          modifiers: [['darker', 1.6]]
+          modifiers: [['darker', 0.3]]
         }}
+        borderWidth={1}
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -66,57 +93,52 @@ export const HorariosChart: React.FC<HorariosChartProps> = ({
         }}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        labelTextColor={{
-          from: 'color',
-          modifiers: [['darker', 1.6]]
-        }}
-        legends={[
-          {
-            dataFrom: 'keys',
-            anchor: 'top-right',
-            direction: 'column',
-            justify: false,
-            translateX: 120,
-            translateY: 0,
-            itemsSpacing: 2,
-            itemWidth: 100,
-            itemHeight: 20,
-            itemDirection: 'left-to-right',
-            itemOpacity: 0.85,
-            symbolSize: 20,
-            effects: [
-              {
-                on: 'hover',
-                style: {
-                  itemOpacity: 1
-                }
-              }
-            ]
+        labelTextColor="#ffffff"
+        enableLabel={true}
+        label={d => {
+          const val = d.value as number
+          if (val >= 1000000) {
+            return `${(val / 1000000).toFixed(1)}M`
+          } else if (val >= 1000) {
+            return `${(val / 1000).toFixed(0)}K`
           }
-        ]}
-        role="application"
-        ariaLabel="Gráfico de distribución horaria de transacciones"
+          return val.toString()
+        }}
         tooltip={({ indexValue, value, color }) => (
           <div
             style={{
-              padding: '12px 16px',
               background: 'white',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+              padding: '12px 16px',
+              border: `2px solid ${color}`,
+              borderRadius: '8px',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
             }}
           >
-            <strong style={{ color }}>Hora: {indexValue}</strong>
-            <br />
-            <span>Transacciones: {value.toLocaleString()}</span>
-            <br />
-            <span style={{ fontSize: '0.875rem', color: '#666' }}>
-              {((value / totalTransactions) * 100).toFixed(2)}% del total
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
+                style={{
+                  width: '12px',
+                  height: '12px',
+                  background: color,
+                  borderRadius: '2px'
+                }}
+              />
+              <strong style={{ fontSize: '14px', color: '#111827' }}>
+                {indexValue}
+              </strong>
+            </div>
+            <div style={{ marginTop: '4px', fontSize: '13px', color: '#6b7280' }}>
+              {(value as number).toLocaleString()} transacciones
+            </div>
+            <div style={{ marginTop: '2px', fontSize: '12px', color: '#9ca3af' }}>
+              {((value as number / totalTransactions) * 100).toFixed(2)}% del total
+            </div>
           </div>
         )}
         animate={true}
         motionConfig="gentle"
+        role="application"
+        ariaLabel="Gráfico de distribución de transacciones por hora"
       />
     </div>
   )
