@@ -36,7 +36,7 @@ export function Sidebar() {
       id: 'caso3',
       name: 'Gestión de Precios',
       icon: '💰',
-      enabled: false,
+      enabled: true,
       status: 'próximamente',
       path: '/casos/precios'
     },

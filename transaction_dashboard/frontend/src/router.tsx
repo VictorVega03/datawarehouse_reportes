@@ -4,6 +4,7 @@ import { MainLayout } from './components/layout/MainLayout'
 import { DashboardHomePage } from './features/dashboard'
 import { HorariosPage } from './features/casos/horarios'
 import { CaducidadPage } from './features/casos/caducidad/pages/CaducidadPage'
+import { PreciosPage } from './features/casos/precios' 
 
 /**
  * Router Configuration for Transaction Dashboard
@@ -36,10 +37,10 @@ export const router = createBrowserRouter([
              path: 'caducidad',
              element: <CaducidadPage />,
           },
-          // {
-          //   path: 'precios',
-          //   element: <PreciosPage />,
-          // },
+          {
+            path: 'precios',
+            element: <PreciosPage />,
+          },
         ],
       },
       // Redirect old route for backwards compatibility
