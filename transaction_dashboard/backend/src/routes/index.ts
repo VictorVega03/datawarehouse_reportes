@@ -8,6 +8,7 @@ import { dashboardRoutes } from './dashboard.routes';
 import { horariosRoutes } from './horarios.routes';
 import { caducidadRoutes } from './caducidad.routes';
 import { preciosRoutes } from './precios.routes';
+import { clientesRoutes } from './clientes.routes';
 const router = Router();
 
 // ===================================
@@ -31,14 +32,14 @@ router.use(`${apiPrefix}/${apiVersion}/dashboard`, dashboardRoutes);
 // CASO 1: Patrones Horarios ✅
 router.use(`${apiPrefix}/${apiVersion}/casos/horarios`, horariosRoutes);
 
-// CASO 2: Control Caducidad ⏳ (próximamente)
+// CASO 2: Control Caducidad ⏳ 
 router.use(`${apiPrefix}/${apiVersion}/casos/caducidad`, caducidadRoutes);
 
-// CASO 3: Gestión Precios ⏸️ (futuro)
+// CASO 3: Gestión Precios ⏸️
 router.use(`${apiPrefix}/${apiVersion}/casos/precios`, preciosRoutes);
 
-// CASO 4: Identificación Clientes ⏸️ (futuro)
-// router.use(`${apiPrefix}/${apiVersion}/casos/clientes`, clientesRoutes);
+// CASO 4: Identificación Clientes ⏸️
+router.use(`${apiPrefix}/${apiVersion}/casos/clientes`, clientesRoutes);
 
 // CASO 5: Seguimiento Inventario ⏸️ (futuro)
 // router.use(`${apiPrefix}/${apiVersion}/casos/inventario`, inventarioRoutes);

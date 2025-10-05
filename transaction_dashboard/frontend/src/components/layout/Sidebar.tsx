@@ -44,7 +44,7 @@ export function Sidebar() {
       id: 'caso4',
       name: 'Identificación de Clientes',
       icon: '👥',
-      enabled: false,
+      enabled: true,
       status: 'próximamente',
       path: '/casos/clientes'
     },
