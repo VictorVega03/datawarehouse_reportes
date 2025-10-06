@@ -8,6 +8,7 @@ import { PreciosPage } from './features/casos/precios'
 import { ClientesPage } from './features/casos/clientes'
 import { InventarioPage } from './features/casos/inventario/pages/InventarioPage'
 import { PagosPage } from './features/casos/pagos'
+import { DevolucionesPage } from './features/casos/devoluciones'
 
 /**
  * Router Configuration for Transaction Dashboard
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
           {
             path: 'Pagos',
             element: <PagosPage />
+          },
+          {
+            path: 'Devoluciones',
+            element: <DevolucionesPage />
           }
         ],
       },

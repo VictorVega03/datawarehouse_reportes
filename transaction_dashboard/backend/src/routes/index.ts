@@ -11,6 +11,7 @@ import { preciosRoutes } from './precios.routes';
 import { clientesRoutes } from './clientes.routes';
 import { inventarioRoutes } from './inventario.routes';
 import pagosRoutes from './pagos.routes';
+import { devolucionesRoutes } from './devoluciones.routes';
 
 const router = Router();
 
@@ -44,14 +45,14 @@ router.use(`${apiPrefix}/${apiVersion}/casos/precios`, preciosRoutes);
 // CASO 4: Identificación Clientes ⏸️
 router.use(`${apiPrefix}/${apiVersion}/casos/clientes`, clientesRoutes);
 
-// CASO 5: Seguimiento Inventario ⏸️ (futuro)
+// CASO 5: Seguimiento Inventario ⏸️ 
 router.use(`${apiPrefix}/${apiVersion}/casos/inventario`, inventarioRoutes);
 
-// CASO 6: Métodos de Pago ⏸️ (futuro)
+// CASO 6: Métodos de Pago ⏸️ 
 router.use(`${apiPrefix}/${apiVersion}/casos/pagos`, pagosRoutes);
 
-// CASO 7: Control Devoluciones ⏸️ (futuro)
-// router.use(`${apiPrefix}/${apiVersion}/casos/devoluciones`, devolucionesRoutes);
+// CASO 7: Control Devoluciones ⏸️ 
+router.use(`${apiPrefix}/${apiVersion}/casos/devoluciones`, devolucionesRoutes);
 
 // ===================================
 // API INFO ROUTE

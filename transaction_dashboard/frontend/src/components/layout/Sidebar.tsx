@@ -68,7 +68,7 @@ export function Sidebar() {
       id: 'caso7',
       name: 'Control de Devoluciones',
       icon: '↩️',
-      enabled: false,
+      enabled: true,
       status: 'próximamente',
       path: '/casos/devoluciones'
     }
