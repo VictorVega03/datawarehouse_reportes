@@ -60,7 +60,7 @@ export function Sidebar() {
       id: 'caso6',
       name: 'Métodos de Pago',
       icon: '💳',
-      enabled: false,
+      enabled: true,
       status: 'próximamente',
       path: '/casos/pagos'
     },
