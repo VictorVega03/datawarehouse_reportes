@@ -6,6 +6,7 @@ import { HorariosPage } from './features/casos/horarios'
 import { CaducidadPage } from './features/casos/caducidad/pages/CaducidadPage'
 import { PreciosPage } from './features/casos/precios' 
 import { ClientesPage } from './features/casos/clientes'
+import { InventarioPage } from './features/casos/inventario/pages/InventarioPage'
 
 /**
  * Router Configuration for Transaction Dashboard
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
           {
             path: 'clientes',
             element: <ClientesPage />
+          },
+          {
+            path: 'inventario',
+            element: <InventarioPage />
           }
         ],
       },

@@ -9,6 +9,7 @@ import { horariosRoutes } from './horarios.routes';
 import { caducidadRoutes } from './caducidad.routes';
 import { preciosRoutes } from './precios.routes';
 import { clientesRoutes } from './clientes.routes';
+import { inventarioRoutes } from './inventario.routes';
 const router = Router();
 
 // ===================================
@@ -42,7 +43,7 @@ router.use(`${apiPrefix}/${apiVersion}/casos/precios`, preciosRoutes);
 router.use(`${apiPrefix}/${apiVersion}/casos/clientes`, clientesRoutes);
 
 // CASO 5: Seguimiento Inventario ⏸️ (futuro)
-// router.use(`${apiPrefix}/${apiVersion}/casos/inventario`, inventarioRoutes);
+router.use(`${apiPrefix}/${apiVersion}/casos/inventario`, inventarioRoutes);
 
 // CASO 6: Métodos de Pago ⏸️ (futuro)
 // router.use(`${apiPrefix}/${apiVersion}/casos/pagos`, pagosRoutes);

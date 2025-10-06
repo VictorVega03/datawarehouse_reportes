@@ -52,7 +52,7 @@ export function Sidebar() {
       id: 'caso5',
       name: 'Seguimiento de Inventario',
       icon: '📋',
-      enabled: false,
+      enabled: true,
       status: 'próximamente',
       path: '/casos/inventario'
     },
