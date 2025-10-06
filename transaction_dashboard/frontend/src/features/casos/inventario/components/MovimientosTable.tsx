@@ -12,6 +12,13 @@ interface Props {
 
 export const MovimientosTable: React.FC<Props> = ({ movimientos, productosCriticos }) => {
   const [activeTab, setActiveTab] = useState<'recientes' | 'criticos'>('recientes');
+  const [criticosPage, setCriticosPage] = useState(1);
+  const criticosPerPage = 10;
+  const totalCriticosPages = Math.ceil(productosCriticos.length / criticosPerPage);
+  const paginatedCriticos = productosCriticos.slice(
+    (criticosPage - 1) * criticosPerPage,
+    criticosPage * criticosPerPage
+  );
 
   const formatNumber = (value: number | string): string => {
     const numValue = typeof value === 'string' ? parseFloat(value) : value;
@@ -117,11 +124,10 @@ export const MovimientosTable: React.FC<Props> = ({ movimientos, productosCritic
                 </tr>
               </thead>
               <tbody>
-                {productosCriticos.map((producto, _index) => {
+                {paginatedCriticos.map((producto, _index) => {
                   const stock = typeof producto.stock_calculado === 'string' 
                     ? parseInt(producto.stock_calculado) 
                     : producto.stock_calculado;
-                  
                   return (
                     <tr key={producto.product_id} className="border-b hover:bg-red-50">
                       <td className="py-3 px-4">
@@ -156,6 +162,26 @@ export const MovimientosTable: React.FC<Props> = ({ movimientos, productosCritic
                 })}
               </tbody>
             </table>
+            {/* Paginación */}
+            <div className="flex justify-center items-center gap-2 mt-4">
+              <button
+                className="px-3 py-1 rounded bg-gray-200 text-gray-700 disabled:opacity-50"
+                onClick={() => setCriticosPage((p) => Math.max(1, p - 1))}
+                disabled={criticosPage === 1}
+              >
+                Anterior
+              </button>
+              <span className="text-sm font-medium">
+                Página {criticosPage} de {totalCriticosPages}
+              </span>
+              <button
+                className="px-3 py-1 rounded bg-gray-200 text-gray-700 disabled:opacity-50"
+                onClick={() => setCriticosPage((p) => Math.min(totalCriticosPages, p + 1))}
+                disabled={criticosPage === totalCriticosPages}
+              >
+                Siguiente
+              </button>
+            </div>
             {productosCriticos.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 ✅ No hay productos con stock crítico
