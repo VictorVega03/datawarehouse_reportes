@@ -11,8 +11,8 @@ export const RecommendationsCard: React.FC<RecommendationsCardProps> = ({ recomm
   // Validación defensiva
   if (!recommendations || !Array.isArray(recommendations) || recommendations.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-blue-50 rounded-lg shadow p-6">
+        <h3 className="text-lg font-bold text-blue-700 mb-4">
           Recomendaciones
         </h3>
         <p className="text-gray-500 text-center py-8">
@@ -67,9 +67,9 @@ export const RecommendationsCard: React.FC<RecommendationsCardProps> = ({ recomm
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-blue-50 rounded-lg shadow p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-bold text-blue-700">
           Recomendaciones Automáticas
         </h3>
         <span className="text-sm text-gray-500">

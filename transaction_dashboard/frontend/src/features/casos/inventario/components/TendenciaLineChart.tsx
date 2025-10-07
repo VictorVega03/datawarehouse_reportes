@@ -14,7 +14,7 @@ export const TendenciaLineChart: React.FC<Props> = ({ data }) => {
     return (
       <Card>
         <Card.Header>
-          <h3 className="text-lg font-semibold">Tendencia de Movimientos (Últimos 30 Días)</h3>
+    <h3 className="text-lg font-semibold">Tendencia de Movimientos (Últimos 30 Días)</h3>
         </Card.Header>
         <Card.Body>
           <div className="h-96 flex items-center justify-center text-gray-500">

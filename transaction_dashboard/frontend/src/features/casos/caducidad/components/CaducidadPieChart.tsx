@@ -15,7 +15,7 @@ export function CaducidadPieChart({ data }: CaducidadPieChartProps) {
         <h3 className="text-lg font-semibold mb-4">Distribución por Estado de Caducidad</h3>
         <div className="h-96 flex items-center justify-center text-gray-500">
           <div className="text-center">
-            <span className="text-6xl mb-4 block">📊</span>
+            {/* Icono eliminado para profesionalismo */}
             <p>No hay datos de caducidad disponibles</p>
           </div>
         </div>

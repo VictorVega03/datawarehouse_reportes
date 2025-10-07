@@ -63,10 +63,10 @@ export const ProductosDescuentoTable: React.FC<Props> = ({ data }) => {
   return (
     <div className="bg-white rounded-lg border-2 border-gray-200 overflow-hidden">
       <div className="p-6 border-b border-gray-200">
-        <h3 className="text-xl font-bold text-gray-900">
-          🏆 Top Productos con Mayor Descuento Promedio
+        <h3 className="text-2xl font-extrabold text-blue-700 tracking-tight mb-1">
+          Top Productos con Mayor Descuento Promedio
         </h3>
-        <p className="text-sm text-gray-600 mt-1">
+        <p className="text-base font-semibold text-gray-700 mt-1">
           Productos con al menos 10 ventas ordenados por % de descuento
         </p>
       </div>
@@ -109,15 +109,8 @@ export const ProductosDescuentoTable: React.FC<Props> = ({ data }) => {
                   }`}
                 >
                   <td className="px-6 py-4">
-                    <div className="flex items-center">
-                      {globalIndex < 3 && (
-                        <span className="mr-2 text-lg">
-                          {globalIndex === 0 ? '🥇' : globalIndex === 1 ? '🥈' : '🥉'}
-                        </span>
-                      )}
-                      <div className="text-sm font-medium text-gray-900">
-                        {producto.productName}
-                      </div>
+                    <div className="text-base font-semibold text-gray-900">
+                      {producto.productName}
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">

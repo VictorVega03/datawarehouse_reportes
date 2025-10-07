@@ -37,37 +37,31 @@ export const PreciosMetricsComponent: React.FC<Props> = ({ metrics }) => {
     {
       title: 'Total Transacciones',
       value: formatNumber(metrics.totalTransaccionesDetalle),
-      icon: '📊',
       color: 'blue'
     },
     {
       title: 'Con Descuento',
       value: `${formatNumber(metrics.transaccionesConDescuento)} (${formatPercent(metrics.porcentajeConDescuento)})`,
-      icon: '🏷️',
       color: 'green'
     },
     {
       title: 'Total Descuentos',
       value: formatCurrency(metrics.totalDescuentos),
-      icon: '💸',
       color: 'red'
     },
     {
       title: 'Ingresos Netos',
       value: formatCurrency(metrics.ingresosNetos),
-      icon: '💰',
       color: 'emerald'
     },
     {
       title: 'Ingresos Sin Descuento',
       value: formatCurrency(metrics.ingresosSinDescuento),
-      icon: '📈',
       color: 'purple'
     },
     {
       title: 'Descuento Promedio',
       value: formatPercent(metrics.porcentajeDescuentoPromedio),
-      icon: '📉',
       color: 'orange'
     }
   ]
@@ -86,26 +80,34 @@ export const PreciosMetricsComponent: React.FC<Props> = ({ metrics }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {cards.map((card, index) => (
-        <div 
-          key={index}
-          className={`${getColorClasses(card.color)} border-2 rounded-lg p-6 transition-all hover:shadow-lg`}
-        >
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <p className="text-sm font-medium text-gray-600 mb-2">
-                {card.title}
-              </p>
-              <p className="text-2xl font-bold text-gray-900">
-                {card.value}
-              </p>
-            </div>
-            <div className="text-4xl ml-4">
-              {card.icon}
+      {cards.map((card, index) => {
+        const colorMap: Record<string, string> = {
+          blue: 'text-blue-700',
+          green: 'text-green-700',
+          red: 'text-red-700',
+          emerald: 'text-emerald-700',
+          purple: 'text-purple-700',
+          orange: 'text-orange-700'
+        };
+        const textColor = colorMap[card.color] || 'text-blue-700';
+        return (
+          <div 
+            key={index}
+            className={`${getColorClasses(card.color)} border-2 rounded-lg p-6 transition-all hover:shadow-lg`}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <p className={`text-lg font-semibold mb-2 tracking-tight ${textColor}`}>
+                  {card.title}
+                </p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {card.value}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

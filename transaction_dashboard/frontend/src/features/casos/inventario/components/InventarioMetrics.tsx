@@ -28,7 +28,7 @@ export const InventarioMetrics: React.FC<Props> = ({ metrics }) => {
                 {formatNumber(metrics.total_productos_rastreados)}
               </p>
             </div>
-            <div className="text-4xl">📦</div>
+            <div className="text-4xl"></div>
           </div>
           <p className="text-xs text-blue-600 mt-2">
             Con movimientos registrados
@@ -48,7 +48,7 @@ export const InventarioMetrics: React.FC<Props> = ({ metrics }) => {
                 {formatNumber(metrics.total_movimientos)}
               </p>
             </div>
-            <div className="text-4xl">🔄</div>
+            <div className="text-4xl"></div>
           </div>
           <p className="text-xs text-green-600 mt-2">
             Entradas y salidas de almacén
@@ -68,7 +68,7 @@ export const InventarioMetrics: React.FC<Props> = ({ metrics }) => {
                 {formatNumber(metrics.productos_con_stock_bajo)}
               </p>
             </div>
-            <div className="text-4xl">⚠️</div>
+            <div className="text-4xl"></div>
           </div>
           <p className="text-xs text-yellow-600 mt-2">
             Productos con menos de 50 unidades

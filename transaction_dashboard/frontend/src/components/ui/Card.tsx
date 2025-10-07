@@ -8,6 +8,9 @@ interface CardProps {
   padding?: 'none' | 'sm' | 'md' | 'lg'
   hover?: boolean
   onClick?: () => void
+  color?: 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'gray'
+  bg?: string // Permite pasar clase de fondo personalizada
+  border?: string // Permite pasar clase de borde personalizada
 }
 
 interface CardHeaderProps {
@@ -35,7 +38,10 @@ export const Card: React.FC<CardProps> & {
   className = '', 
   padding = 'md',
   hover = false,
-  onClick 
+  onClick,
+  color,
+  bg,
+  border
 }) => {
   const paddingStyles = {
     none: '',
@@ -43,19 +49,41 @@ export const Card: React.FC<CardProps> & {
     md: 'p-6',
     lg: 'p-8'
   }
-  
-  const baseStyles = 'bg-white rounded-lg shadow-md'
-  const hoverStyles = hover ? 'hover:shadow-lg transition-shadow duration-200 cursor-pointer' : ''
+
+  // Colores base para métricas
+  const colorBg = color ? {
+    blue: 'bg-blue-50',
+    green: 'bg-green-50',
+    orange: 'bg-orange-50',
+    purple: 'bg-purple-50',
+    red: 'bg-red-50',
+    gray: 'bg-gray-50'
+  }[color] : ''
+  const colorBorder = color ? {
+    blue: 'border border-blue-200',
+    green: 'border border-green-200',
+    orange: 'border border-orange-200',
+    purple: 'border border-purple-200',
+    red: 'border border-red-200',
+    gray: 'border border-gray-200'
+  }[color] : ''
+
+  const baseStyles = 'rounded-lg shadow-sm'
+  const hoverStyles = hover ? 'hover:shadow-md hover:scale-[1.02] transition-all duration-200 cursor-pointer' : ''
   const clickStyles = onClick ? 'cursor-pointer' : ''
-  
+  const bgClass = bg || colorBg || 'bg-white'
+  const borderClass = border || colorBorder || ''
+
   const cardClasses = `
     ${baseStyles}
+    ${bgClass}
+    ${borderClass}
     ${paddingStyles[padding]}
     ${hoverStyles}
     ${clickStyles}
     ${className}
   `.trim().replace(/\s+/g, ' ')
-  
+
   return (
     <div className={cardClasses} onClick={onClick}>
       {children}

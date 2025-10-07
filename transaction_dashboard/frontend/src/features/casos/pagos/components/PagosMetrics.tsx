@@ -37,10 +37,10 @@ export const PagosMetrics: React.FC<PagosMetricsProps> = ({ resumen }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
       {/* Total Transacciones */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-blue-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">Total Transacciones</p>
+            <p className="text-sm font-bold text-blue-700">Total Transacciones</p>
             <p className="text-2xl font-bold text-gray-900 mt-1">
               {formatNumber(resumen.total_transacciones)}
             </p>
@@ -54,10 +54,10 @@ export const PagosMetrics: React.FC<PagosMetricsProps> = ({ resumen }) => {
       </div>
 
       {/* Total Ingresos */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-green-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">Ingresos Totales</p>
+            <p className="text-sm font-bold text-green-700">Ingresos Totales</p>
             <p className="text-2xl font-bold text-green-600 mt-1">
               {formatCurrency(resumen.total_ingresos)}
             </p>
@@ -71,10 +71,10 @@ export const PagosMetrics: React.FC<PagosMetricsProps> = ({ resumen }) => {
       </div>
 
       {/* Métodos Únicos */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-purple-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">Métodos de Pago</p>
+            <p className="text-sm font-bold text-purple-700">Métodos de Pago</p>
             <p className="text-2xl font-bold text-gray-900 mt-1">
               {formatNumber(resumen.metodos_unicos)}
             </p>
@@ -88,10 +88,10 @@ export const PagosMetrics: React.FC<PagosMetricsProps> = ({ resumen }) => {
       </div>
 
       {/* Método Dominante */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-indigo-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <p className="text-sm font-medium text-gray-600">Método Dominante</p>
+            <p className="text-sm font-bold text-indigo-700">Método Dominante</p>
             <p className="text-lg font-bold text-gray-900 mt-1 capitalize">
               {resumen.metodo_dominante}
             </p>
@@ -108,10 +108,10 @@ export const PagosMetrics: React.FC<PagosMetricsProps> = ({ resumen }) => {
       </div>
 
       {/* Transacciones Alto Riesgo */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-red-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">Alto Riesgo</p>
+            <p className="text-sm font-bold text-red-700">Alto Riesgo</p>
             <p className="text-2xl font-bold text-red-600 mt-1">
               {formatNumber(resumen.transacciones_alto_riesgo)}
             </p>

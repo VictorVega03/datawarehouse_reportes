@@ -1,5 +1,3 @@
-// backend/src/controllers/devoluciones.controller.ts
-
 import { Request, Response } from 'express';
 import { devolucionesService } from '../services/devoluciones.service';
 import { devolucionesRepository } from '../repositories/devoluciones.repository';
@@ -39,8 +37,6 @@ class DevolucionesController {
   /**
    * Obtiene el análisis completo de devoluciones
    */
-// backend/src/controllers/devoluciones.controller.ts
-
 getAnalysis = async (_req: Request, res: Response) => {
   try {
     console.log('🔍 [DEBUG] getAnalysis called');
@@ -169,12 +165,6 @@ getAnalysis = async (_req: Request, res: Response) => {
     }
   };
 
-  // En devoluciones.controller.ts
-
-/**
- * 🔄 POST /refresh-vistas
- * Actualiza las vistas materializadas
- */
 refreshVistas = async (_req: Request, res: Response) => {
   try {
     logger.info('🔄 Endpoint refresh-vistas llamado')

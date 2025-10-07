@@ -26,8 +26,7 @@ export const ProductosBarChart: React.FC<Props> = ({ data }) => {
     );
   }
 
-  // Debug: Mostrar datos recibidos
-  console.log('[ProductosBarChart] Datos recibidos:', data.slice(0, 2));
+  // ...existing code...
 
   const chartData = data.slice(0, 10).map(item => {
     // Convertir valores a números seguros
@@ -74,7 +73,7 @@ export const ProductosBarChart: React.FC<Props> = ({ data }) => {
     );
   }
 
-  console.log('[ProductosBarChart] Datos procesados para gráfico:', chartData.slice(0, 2));
+  // ...existing code...
 
   return (
     <Card>

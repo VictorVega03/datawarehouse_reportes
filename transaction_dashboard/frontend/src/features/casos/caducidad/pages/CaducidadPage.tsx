@@ -29,11 +29,11 @@ export function CaducidadPage() {
         <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg max-w-2xl">
           <div className="flex items-start">
             <div className="flex-shrink-0">
-              <span className="text-4xl">⚠️</span>
+              <span className="text-4xl text-red-500">!</span>
             </div>
             <div className="ml-4">
               <h3 className="text-lg font-semibold text-red-800 mb-2">
-                Error al Cargar Datos de Caducidad
+                Error al cargar datos de caducidad
               </h3>
               <p className="text-red-700 mb-4">
                 {error instanceof Error ? error.message : 'Error desconocido al cargar los datos'}
@@ -72,26 +72,27 @@ export function CaducidadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Control de Caducidad
-            </h1>
-            <p className="text-gray-600 mt-1">
-              Monitoreo y gestión de productos próximos a vencer
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-sm font-medium">
-              <span className="w-2 h-2 bg-green-600 rounded-full mr-2 animate-pulse"></span>
-              Datos en Tiempo Real
-            </span>
+      <div className="min-h-screen bg-gray-50 p-6">
+        {/* Header */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-extrabold text-gray-900 mb-2 tracking-tight drop-shadow-sm">
+                <span className="block text-blue-700">Caso 2:</span>
+                <span className="block text-gray-900">Control de Caducidad</span>
+              </h1>
+              <p className="text-gray-600 mt-1">
+                Monitoreo y gestión profesional de productos próximos a vencer. Optimiza tu inventario y reduce pérdidas por caducidad.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-sm font-medium">
+                <span className="w-2 h-2 bg-green-600 rounded-full mr-2 animate-pulse"></span>
+                Datos en Tiempo Real
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
       {/* Métricas principales */}
       <CaducidadMetrics metrics={data.metrics} />
@@ -106,20 +107,20 @@ export function CaducidadPage() {
       <CriticalProductsTable data={data.criticalProducts} />
 
       {/* Información adicional */}
-      <div className="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+      <div className="mt-6 bg-gradient-to-br from-blue-50 to-white border-l-4 border-blue-500 p-4 rounded-lg shadow-md">
         <div className="flex">
           <div className="flex-shrink-0">
-            <span className="text-2xl">💡</span>
+            <span className="text-2xl text-blue-600 font-bold">i</span>
           </div>
           <div className="ml-3">
-            <h4 className="text-sm font-semibold text-blue-800 mb-2">
+            <h4 className="text-base font-bold text-blue-700 mb-2 tracking-tight">
               Recomendaciones de Acción
             </h4>
-            <ul className="text-sm text-blue-700 space-y-1">
-              <li>• <strong>Vencidos:</strong> Retirar inmediatamente del inventario</li>
-              <li>• <strong>Críticos (1-3 días):</strong> Aplicar descuentos del 50%+ para liquidación urgente</li>
-              <li>• <strong>Urgentes (4-7 días):</strong> Promociones especiales y notificación a clientes frecuentes</li>
-              <li>• <strong>Preventivo:</strong> Implementar sistema FIFO para rotación adecuada</li>
+            <ul className="text-sm text-blue-700 space-y-2">
+              <li className="bg-blue-100 rounded px-2 py-1"><strong>Vencidos:</strong> Retirar inmediatamente del inventario</li>
+              <li className="bg-blue-100 rounded px-2 py-1"><strong>Críticos (1-3 días):</strong> Aplicar descuentos del 50%+ para liquidación urgente</li>
+              <li className="bg-blue-100 rounded px-2 py-1"><strong>Urgentes (4-7 días):</strong> Promociones especiales y notificación a clientes frecuentes</li>
+              <li className="bg-blue-100 rounded px-2 py-1"><strong>Preventivo:</strong> Implementar sistema FIFO para rotación adecuada</li>
             </ul>
           </div>
         </div>

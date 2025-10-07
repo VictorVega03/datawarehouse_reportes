@@ -24,7 +24,7 @@ export const PreciosPieChart: React.FC<Props> = ({ data }) => {
   return (
     <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
       <h3 className="text-xl font-bold text-gray-900 mb-4">
-        📊 Distribución de Descuentos por Rango
+  Distribución de Descuentos por Rango
       </h3>
       <div style={{ height: '400px' }}>
         <ResponsivePie

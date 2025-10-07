@@ -50,7 +50,7 @@ export function ClientesPage() {
           <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
             <div className="flex">
               <div className="flex-shrink-0">
-                <span className="text-3xl">⚠️</span>
+                <span className="text-3xl">!</span>
               </div>
               <div className="ml-4">
                 <h3 className="text-lg font-semibold text-red-800 mb-2">
@@ -79,7 +79,7 @@ export function ClientesPage() {
       <div className="min-h-screen bg-gray-50 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
-            <span className="text-6xl mb-4 block">📭</span>
+            <span className="text-6xl mb-4 block">Sin datos</span>
             <h3 className="text-lg font-medium text-gray-900 mb-2">Sin datos</h3>
             <p className="text-gray-600">No hay datos de clientes disponibles</p>
           </div>
@@ -92,19 +92,16 @@ export function ClientesPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
+        {/* Header clásico consistente */}
+  <div className="px-8 pt-2 pb-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                🎯 Identificación de Clientes
-              </h1>
-              <p className="text-gray-600">
-                Análisis de segmentación y comportamiento de clientes
-              </p>
+              <h2 className="text-3xl font-extrabold text-blue-600 mb-1">Caso 4:</h2>
+              <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Identificación de Clientes</h1>
+              <p className="text-lg text-gray-600">Análisis de segmentación y comportamiento de clientes</p>
             </div>
             <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-medium">
-              📊 Datos en Tiempo Real
+              Datos en Tiempo Real
             </div>
           </div>
         </div>
@@ -155,12 +152,12 @@ export function ClientesPage() {
         {/* Recomendaciones */}
         <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
           <h3 className="text-lg font-semibold text-blue-900 mb-4">
-            📋 Recomendaciones Estratégicas
+            Recomendaciones Estratégicas
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="bg-white rounded-lg p-4 border border-blue-100">
               <div className="font-medium text-blue-900 mb-2">
-                💎 Retención VIP
+                Retención VIP
               </div>
               <div className="text-sm text-blue-700">
                 Crear programa de lealtad para clientes Platinum y Gold
@@ -168,7 +165,7 @@ export function ClientesPage() {
             </div>
             <div className="bg-white rounded-lg p-4 border border-blue-100">
               <div className="font-medium text-blue-900 mb-2">
-                📈 Upgrade de Clientes
+                Upgrade de Clientes
               </div>
               <div className="text-sm text-blue-700">
                 Incentivar a clientes Frecuentes a convertirse en VIP
@@ -176,7 +173,7 @@ export function ClientesPage() {
             </div>
             <div className="bg-white rounded-lg p-4 border border-blue-100">
               <div className="font-medium text-blue-900 mb-2">
-                🔄 Reactivación
+                Reactivación
               </div>
               <div className="text-sm text-blue-700">
                 Campañas de reenganche para clientes Ocasionales
@@ -184,7 +181,7 @@ export function ClientesPage() {
             </div>
             <div className="bg-white rounded-lg p-4 border border-blue-100">
               <div className="font-medium text-blue-900 mb-2">
-                ❓ Reducir Anónimos
+                Reducir Anónimos
               </div>
               <div className="text-sm text-blue-700">
                 Implementar incentivos para captura de datos de clientes
@@ -192,7 +189,7 @@ export function ClientesPage() {
             </div>
             <div className="bg-white rounded-lg p-4 border border-blue-100">
               <div className="font-medium text-blue-900 mb-2">
-                📊 Análisis Predictivo
+                Análisis Predictivo
               </div>
               <div className="text-sm text-blue-700">
                 Usar datos de recencia para predecir churn de clientes
@@ -200,7 +197,7 @@ export function ClientesPage() {
             </div>
             <div className="bg-white rounded-lg p-4 border border-blue-100">
               <div className="font-medium text-blue-900 mb-2">
-                🎯 Personalización
+                Personalización
               </div>
               <div className="text-sm text-blue-700">
                 Ofertas personalizadas según segmento de cliente

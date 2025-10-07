@@ -19,7 +19,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold mb-4">Productos Críticos</h3>
         <div className="text-center py-12 text-gray-500">
-          <span className="text-6xl mb-4 block">✅</span>
+          {/* Icono eliminado para profesionalismo */}
           <p className="text-lg font-medium">¡Excelente!</p>
           <p className="text-sm mt-2">No hay productos críticos en este momento</p>
         </div>
@@ -81,7 +81,7 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold mb-4">Productos Críticos</h3>
         <div className="text-center py-12 text-gray-500">
-          <span className="text-6xl mb-4 block">✅</span>
+          {/* Icono eliminado para profesionalismo */}
           <p className="text-lg font-medium">¡Excelente!</p>
           <p className="text-sm mt-2">No hay productos críticos en este momento</p>
         </div>
@@ -162,42 +162,28 @@ export function CriticalProductsTable({ data }: CriticalProductsTableProps) {
 
       {/* Tabla */}
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-gray-200 rounded-lg border border-blue-100 bg-blue-50">
+          <thead className="bg-blue-100">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Producto
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Categoría
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Lote
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Fecha Caducidad
-              </th>
-              <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Días
-              </th>
-              <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Urgencia
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Acción Requerida
-              </th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider border-b border-blue-200">Producto</th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider border-b border-blue-200">Categoría</th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider border-b border-blue-200">Lote</th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider border-b border-blue-200">Fecha Caducidad</th>
+              <th className="px-6 py-3 text-center text-xs font-bold text-blue-700 uppercase tracking-wider border-b border-blue-200">Días</th>
+              <th className="px-6 py-3 text-center text-xs font-bold text-blue-700 uppercase tracking-wider border-b border-blue-200">Urgencia</th>
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider border-b border-blue-200">Acción Requerida</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody>
             {filteredData.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
+                <td colSpan={7} className="px-6 py-8 text-center text-gray-500 bg-white">
                   No se encontraron productos que coincidan con los filtros
                 </td>
               </tr>
             ) : (
               paginatedData.map((product, index) => (
-                <tr key={index} className="hover:bg-gray-50 transition-colors">
+                <tr key={index} className={index % 2 === 0 ? "bg-white hover:bg-blue-50 transition-colors" : "bg-blue-50 hover:bg-blue-100 transition-colors"}>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">
                       {product.nombre}

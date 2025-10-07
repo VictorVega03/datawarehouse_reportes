@@ -6,7 +6,6 @@ import { useHorariosAnalysis } from '../hooks/useHorariosData'
 import { HorariosChart, HorariosMetrics, HorariosTable } from '../components'
 import { Card } from '../../../../components/ui/Card'
 import { Spinner } from '../../../../components/ui/Spinner'
-import { Badge } from '../../../../components/ui/Badge'
 import { Button } from '../../../../components/ui/Button'
 
 export const HorariosPage: React.FC = () => {
@@ -54,18 +53,15 @@ export const HorariosPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-4xl">🕐</span>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Caso 1: Análisis de Patrones Horarios
-            </h1>
+              <h1 className="text-4xl font-extrabold text-gray-900 mb-2 tracking-tight drop-shadow-sm">
+                <span className="block text-blue-700">Caso 1:</span>
+                <span className="block text-gray-900">Análisis de Patrones Horarios</span>
+              </h1>
           </div>
           <p className="text-gray-600">
             Optimización de operaciones basada en distribución temporal de ventas
           </p>
         </div>
-        <Badge variant="success" size="lg">
-          ✅ Completado
-        </Badge>
       </div>
 
       {/* Métricas Principales */}
@@ -77,24 +73,21 @@ export const HorariosPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-semibold text-gray-800">
-                📊 Distribución de Ventas por Hora
+                  Distribución de Ventas por Hora
               </h2>
               <p className="text-sm text-gray-600 mt-1">
                 Análisis de {data.totalTransactions.toLocaleString()} transacciones por horario
               </p>
             </div>
             <div className="flex gap-2">
-              <Button size="sm" variant="outline">
-                📥 Exportar
-              </Button>
               <Button size="sm" variant="primary" onClick={() => window.location.reload()}>
-                🔄 Actualizar
+                  Actualizar
               </Button>
             </div>
           </div>
         </Card.Header>
         <Card.Body>
-          <HorariosChart data={data.hourlyDistribution} height={500} />
+          <HorariosChart data={data.hourlyDistribution} totalTransactions={data.totalTransactions} height={500} />
         </Card.Body>
       </Card>
 
@@ -102,21 +95,23 @@ export const HorariosPage: React.FC = () => {
       <Card>
         <Card.Header>
           <h2 className="text-xl font-semibold text-gray-800">
-            📋 Análisis Detallado por Horarios
+              Análisis Detallado por Horarios
           </h2>
         </Card.Header>
         <Card.Body>
-          <HorariosTable data={data.hourlyDistribution} />
+            <div className="rounded-lg border border-gray-200 bg-gray-50 p-2 shadow-sm">
+              <HorariosTable data={data.hourlyDistribution} />
+            </div>
         </Card.Body>
       </Card>
 
       {/* Insights y Recomendaciones */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Insights */}
-        <Card>
+        <Card className="border-blue-200 shadow-md bg-gradient-to-br from-blue-50 to-white">
           <Card.Header>
-            <h3 className="text-lg font-semibold text-gray-800">
-              💡 Insights Clave
+            <h3 className="text-lg font-bold text-blue-700 tracking-tight">
+              Insights Clave
             </h3>
           </Card.Header>
           <Card.Body>
@@ -124,36 +119,32 @@ export const HorariosPage: React.FC = () => {
               <ul className="space-y-3">
                 {data.insights.map((insight, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="text-xl">
-                      {index === 0 ? '🎯' : index === 1 ? '📊' : '💰'}
-                    </span>
-                    <p className="text-sm text-gray-700">{insight}</p>
+                    <div className="rounded-md bg-blue-100 px-3 py-2 text-blue-900 shadow-sm w-full">
+                      <p className="text-sm font-medium">{insight}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
             ) : (
               <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-xl">🎯</span>
-                  <div>
+                <li>
+                  <div className="rounded-md bg-blue-100 px-3 py-2 text-blue-900 shadow-sm">
                     <strong className="text-gray-900">Pico Principal:</strong>
                     <p className="text-sm text-gray-600">
                       El {data.peakPercentage}% de las transacciones ocurren en {data.peakHour}
                     </p>
                   </div>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-xl">📊</span>
-                  <div>
+                <li>
+                  <div className="rounded-md bg-blue-100 px-3 py-2 text-blue-900 shadow-sm">
                     <strong className="text-gray-900">Concentración:</strong>
                     <p className="text-sm text-gray-600">
                       El {data.concentration.percentage}% de las ventas se concentran en solo {data.concentration.hours} horas
                     </p>
                   </div>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-xl">💰</span>
-                  <div>
+                <li>
+                  <div className="rounded-md bg-blue-100 px-3 py-2 text-blue-900 shadow-sm">
                     <strong className="text-gray-900">Oportunidad:</strong>
                     <p className="text-sm text-gray-600">
                       ROI potencial de {data.potentialROI} con optimización de personal
@@ -166,10 +157,10 @@ export const HorariosPage: React.FC = () => {
         </Card>
 
         {/* Recomendaciones */}
-        <Card>
+        <Card className="border-green-200 shadow-md bg-gradient-to-br from-green-50 to-white">
           <Card.Header>
-            <h3 className="text-lg font-semibold text-gray-800">
-              ✅ Recomendaciones
+            <h3 className="text-lg font-bold text-green-700 tracking-tight">
+              Recomendaciones
             </h3>
           </Card.Header>
           <Card.Body>
@@ -177,34 +168,33 @@ export const HorariosPage: React.FC = () => {
               <ul className="space-y-3">
                 {data.recommendations.map((recommendation, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="text-green-600 font-bold">{index + 1}.</span>
-                    <p className="text-sm text-gray-700">{recommendation}</p>
+                    <div className="rounded-md bg-green-100 px-3 py-2 text-green-900 shadow-sm w-full flex gap-2 items-center">
+                      <span className="text-green-700 font-bold">{index + 1}.</span>
+                      <p className="text-sm font-medium">{recommendation}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
             ) : (
               <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-green-600 font-bold">1.</span>
-                  <div>
+                <li>
+                  <div className="rounded-md bg-green-100 px-3 py-2 text-green-900 shadow-sm">
                     <strong className="text-gray-900">Personal en Horas Pico</strong>
                     <p className="text-sm text-gray-600">
                       Incrementar personal 50% en horario {data.peakHour}
                     </p>
                   </div>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-600 font-bold">2.</span>
-                  <div>
+                <li>
+                  <div className="rounded-md bg-green-100 px-3 py-2 text-green-900 shadow-sm">
                     <strong className="text-gray-900">Optimización Horas Valle</strong>
                     <p className="text-sm text-gray-600">
                       Reducir personal 30% en horarios de baja demanda
                     </p>
                   </div>
                 </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-600 font-bold">3.</span>
-                  <div>
+                <li>
+                  <div className="rounded-md bg-green-100 px-3 py-2 text-green-900 shadow-sm">
                     <strong className="text-gray-900">Promociones Estratégicas</strong>
                     <p className="text-sm text-gray-600">
                       Implementar descuentos en horas valle para equilibrar demanda

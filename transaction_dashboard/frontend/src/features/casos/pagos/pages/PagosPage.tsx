@@ -109,12 +109,10 @@ export const PagosPage: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Caso 6: Registro del Método de Pago
+        <h1 className="text-3xl font-bold text-blue-700 mb-1">
+          <span className="font-bold text-blue-700">Caso 6:</span> <span className="text-gray-900 font-bold">Registro del Método de Pago</span>
         </h1>
-        <p className="text-gray-600">
-          Análisis de métodos de pago, identificación de riesgos y recomendaciones para optimizar transacciones
-        </p>
+        <p className="text-xl text-gray-700 font-semibold mb-2">Análisis de métodos de pago, identificación de riesgos y recomendaciones para optimizar transacciones</p>
       </div>
 
       {/* Métricas principales */}

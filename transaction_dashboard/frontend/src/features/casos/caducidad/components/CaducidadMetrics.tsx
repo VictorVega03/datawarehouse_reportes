@@ -11,7 +11,6 @@ export function CaducidadMetrics({ metrics }: CaducidadMetricsProps) {
     {
       title: 'Lotes Vencidos',
       value: metrics.lotesVencidos,
-      icon: '🚫',
       color: 'bg-red-50 border-red-200',
       textColor: 'text-red-700',
       valueColor: 'text-red-900',
@@ -20,7 +19,6 @@ export function CaducidadMetrics({ metrics }: CaducidadMetricsProps) {
     {
       title: 'Lotes Críticos',
       value: metrics.lotesCriticos,
-      icon: '⚠️',
       color: 'bg-orange-50 border-orange-200',
       textColor: 'text-orange-700',
       valueColor: 'text-orange-900',
@@ -29,7 +27,6 @@ export function CaducidadMetrics({ metrics }: CaducidadMetricsProps) {
     {
       title: 'Lotes Urgentes',
       value: metrics.lotesUrgentes,
-      icon: '⏰',
       color: 'bg-yellow-50 border-yellow-200',
       textColor: 'text-yellow-700',
       valueColor: 'text-yellow-900',
@@ -38,7 +35,6 @@ export function CaducidadMetrics({ metrics }: CaducidadMetricsProps) {
     {
       title: 'Ahorro Estimado',
       value: metrics.ahorroEstimado,
-      icon: '💰',
       color: 'bg-green-50 border-green-200',
       textColor: 'text-green-700',
       valueColor: 'text-green-900',
@@ -65,7 +61,6 @@ export function CaducidadMetrics({ metrics }: CaducidadMetricsProps) {
                 {card.description}
               </p>
             </div>
-            <span className="text-3xl ml-2">{card.icon}</span>
           </div>
         </div>
       ))}

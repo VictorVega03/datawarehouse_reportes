@@ -1,6 +1,3 @@
-// backend/src/features/casos/horarios/horarios.controller.ts
-// Controller para el caso de uso: Patrones Horarios
-
 import { Request, Response } from 'express'
 import { logger } from '../utils/logger'
 import { horariosService } from '../services/horarios.service'

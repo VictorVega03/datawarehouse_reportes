@@ -13,9 +13,9 @@ export const useInventarioMetrics = () => {
   return useQuery({
     queryKey: ['inventario', 'metrics'],
     queryFn: async () => {
-      console.log('[useInventarioMetrics] Fetching metrics...');
+  // ...existing code...
       const response = await apiClient.get('/casos/inventario/metrics');
-      console.log('[useInventarioMetrics] Response:', response.data);
+  // ...existing code...
       return response.data.data;
     },
     staleTime: 5 * 60 * 1000, // 5 minutos
@@ -28,9 +28,9 @@ export const useMovimientosPorTipo = () => {
   return useQuery({
     queryKey: ['inventario', 'movimientos-tipo'],
     queryFn: async () => {
-      console.log('[useMovimientosPorTipo] Fetching...');
+  // ...existing code...
       const response = await apiClient.get('/casos/inventario/movimientos-tipo');
-      console.log('[useMovimientosPorTipo] Response:', response.data);
+  // ...existing code...
       return response.data.data;
     },
     staleTime: 5 * 60 * 1000,
@@ -43,11 +43,11 @@ export const useProductosMasMovidos = () => {
   return useQuery({
     queryKey: ['inventario', 'productos-movidos'],
     queryFn: async () => {
-      console.log('[useProductosMasMovidos] Fetching...');
+  // ...existing code...
       const response = await apiClient.get('/casos/inventario/productos-movidos', {
         timeout: 60000 // 60 segundos
       });
-      console.log('[useProductosMasMovidos] Response:', response.data);
+  // ...existing code...
       return response.data.data;
     },
     staleTime: 10 * 60 * 1000, // 10 minutos - se cachea más tiempo
@@ -63,9 +63,9 @@ export const useInventarioTendencia = () => {
   return useQuery({
     queryKey: ['inventario', 'tendencia'],
     queryFn: async () => {
-      console.log('[useInventarioTendencia] Fetching tendencia...');
+  // ...existing code...
       const response = await apiClient.get('/casos/inventario/tendencia');
-      console.log('[useInventarioTendencia] Response:', response.data);
+  // ...existing code...
       return response.data.data;
     },
     staleTime: 10 * 60 * 1000, // 10 minutos
@@ -82,9 +82,9 @@ export const useMovimientosRecientes = (limit: number = 50) => {
   return useQuery({
     queryKey: ['inventario', 'movimientos-recientes', limit],
     queryFn: async () => {
-      console.log('[useMovimientosRecientes] Fetching...');
+  // ...existing code...
       const response = await apiClient.get(`/casos/inventario/movimientos-recientes?limit=${limit}`);
-      console.log('[useMovimientosRecientes] Response:', response.data);
+  // ...existing code...
       return response.data.data;
     },
     staleTime: 2 * 60 * 1000, // 2 minutos (datos cambian frecuentemente)
@@ -100,9 +100,9 @@ export const useProductosCriticos = (umbral: number = 20, shouldFetch: boolean =
   return useQuery({
     queryKey: ['inventario', 'criticos', umbral],
     queryFn: async () => {
-      console.log('[useProductosCriticos] Fetching productos críticos...');
+  // ...existing code...
       const response = await apiClient.get(`/casos/inventario/productos/criticos?umbral=${umbral}`);
-      console.log('[useProductosCriticos] Response:', response.data);
+  // ...existing code...
       return response.data.data;
     },
     staleTime: 5 * 60 * 1000,
@@ -118,9 +118,9 @@ export const useInventarioAnalysis = (): UseQueryResult<InventarioAnalysisData, 
   return useQuery({
     queryKey: ['inventario', 'analysis'],
     queryFn: async () => {
-      console.log('[useInventarioAnalysis] Fetching inventario analysis...');
+  // ...existing code...
       const response = await apiClient.get('/casos/inventario/analysis');
-      console.log('[useInventarioAnalysis] Response:', response.data);
+  // ...existing code...
       return response.data.data;
     },
     staleTime: 5 * 60 * 1000,
@@ -136,20 +136,20 @@ export const useRefreshVistas = () => {
   
   return useMutation({
     mutationFn: async () => {
-      console.log('[useRefreshVistas] Refrescando vistas materializadas...');
+  // ...existing code...
       const response = await apiClient.post('/casos/inventario/refresh-vistas', {}, {
         timeout: 180000 // 3 minutos de timeout
       });
-      console.log('[useRefreshVistas] Response:', response.data);
+  // ...existing code...
       return response.data;
     },
     onSuccess: () => {
       // Invalidar todas las queries de inventario para forzar re-fetch
       queryClient.invalidateQueries({ queryKey: ['inventario'] });
-      console.log('[useRefreshVistas] Vistas actualizadas, invalidando cache...');
+  // ...existing code...
     },
     onError: (error) => {
-      console.error('[useRefreshVistas] Error:', error);
+  // ...existing code...
     }
   });
 };

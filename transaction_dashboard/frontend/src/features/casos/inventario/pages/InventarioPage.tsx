@@ -48,33 +48,27 @@ export const InventarioPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                📦 Seguimiento de Inventario
-              </h1>
-              <p className="text-gray-600">
-                Caso de Uso 5 - Análisis de 49.4M+ movimientos con Vistas Materializadas
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              {/* Indicador de estado */}
-              {isAnyLoading ? (
-                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium animate-pulse">
-                  ⏳ Cargando datos...
-                </span>
-              ) : (
-                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                  ✅ Datos cargados
-                </span>
-              )}
-              
-              {/* Botón de refresh de vistas materializadas */}
-              <RefreshVistasButton />
-            </div>
+      {/* Header clásico consistente */}
+      <div className="max-w-7xl mx-auto px-8 py-6">
+        <div className="flex items-center justify-between">
+          <div>
+      <h2 className="text-3xl font-extrabold text-blue-600 mb-1">Caso 5:</h2>
+      <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Gestión de Inventario</h1>
+            <p className="text-lg text-gray-600">Optimización y control de inventario basada en análisis de movimientos y stock</p>
+          </div>
+          <div className="flex items-center gap-3">
+            {/* Indicador de estado */}
+            {isAnyLoading ? (
+              <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium animate-pulse">
+                Cargando datos...
+              </span>
+            ) : (
+              <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                Datos cargados
+              </span>
+            )}
+            {/* Botón de refresh de vistas materializadas */}
+            <RefreshVistasButton />
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { Sidebar } from './Sidebar'
 
 export function MainLayout() {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50">
       {/* Sidebar - ahora maneja su propio estado internamente */}
       <Sidebar />
 

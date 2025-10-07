@@ -31,7 +31,7 @@ export const PreciosBarChart: React.FC<Props> = ({ data }) => {
   return (
     <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
       <h3 className="text-xl font-bold text-gray-900 mb-4">
-        💰 Top Categorías con Descuentos
+  Top Categorías con Descuentos
       </h3>
       <div style={{ height: '500px' }}>
         <ResponsiveBar

@@ -1,6 +1,3 @@
-// backend/src/features/casos/caducidad/caducidad.controller.ts
-// Controller para el caso de uso: Control de Caducidad
-
 import { Request, Response } from 'express'
 import { logger } from '../utils/logger'
 import { caducidadService } from '../services/caducidad.service'
@@ -12,18 +9,18 @@ class CaducidadController {
   
   testEndpoint = async (_req: Request, res: Response) => {
     try {
-      logger.info('🧪 Caducidad test endpoint called')
+      logger.info('Caducidad test endpoint called')
       
       res.status(200).json({
         success: true,
-        message: '🎉 Caducidad API funcionando correctamente!',
+        message: 'Caducidad API funcionando correctamente!',
         service: 'Control de Caducidad - Transaction Analytics',
         endpoint: '/api/v1/casos/caducidad/test',
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development'
       })
     } catch (error) {
-      logger.error('❌ Caducidad test endpoint error:', error)
+      logger.error('Caducidad test endpoint error:', error)
       res.status(500).json({
         success: false,
         error: 'Error en endpoint de prueba',
@@ -38,18 +35,18 @@ class CaducidadController {
   
   getMetrics = async (_req: Request, res: Response) => {
     try {
-      logger.info('📊 Getting caducidad metrics')
+      logger.info('Getting caducidad metrics')
       
       const metrics = await caducidadService.getExpiryMetrics()
       
-      logger.info('✅ Caducidad metrics retrieved successfully')
+      logger.info('Caducidad metrics retrieved successfully')
       res.status(200).json({
         success: true,
         data: metrics,
         timestamp: new Date().toISOString()
       })
     } catch (error) {
-      logger.error('❌ Error getting caducidad metrics:', error)
+      logger.error('Error getting caducidad metrics:', error)
       res.status(500).json({
         success: false,
         error: 'Error al obtener métricas de caducidad',

@@ -29,13 +29,7 @@ export const DashboardHomePage: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // 🔍 DEBUG - Ver qué datos llegan
-  console.log('📊 Metrics completo:', metrics)
-  console.log('📊 Total Transactions:', metrics?.totalTransactions)
-  console.log('📊 Unique Customers:', metrics?.uniqueCustomers)
-  console.log('📊 Completion Rate:', metrics?.completionRate)
-  console.log('📊 Loading:', metricsLoading)
-  console.log('📊 Error:', metricsError)
+  // Limpieza: eliminar mensajes de debug
 
   // Determinar si hay datos válidos
   const hasValidData = metrics && !metricsLoading && !metricsError
@@ -46,14 +40,13 @@ export const DashboardHomePage: React.FC = () => {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard Principal</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-3xl font-bold text-blue-700 mb-1">
+              <span className="font-bold text-blue-700">Dashboard Principal</span>
+            </h1>
+            <p className="text-xl text-gray-700 font-semibold mb-2">
               Vista general del sistema de análisis de transacciones
             </p>
           </div>
-          <Badge variant={metricsLoading ? 'warning' : metricsError ? 'danger' : 'success'} size="lg">
-            {metricsLoading ? 'Cargando...' : metricsError ? 'Error Conexión' : 'Sistema Operativo'}
-          </Badge>
         </div>
       </div>
 
@@ -73,12 +66,13 @@ export const DashboardHomePage: React.FC = () => {
       )}
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card padding="md" hover>
-          <div className="flex items-center justify-between">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <Card padding="md" hover className="bg-blue-50 border border-blue-200">
+          <div className="flex items-center gap-3">
+            <div className="text-3xl">📊</div>
             <div>
-              <p className="text-sm text-gray-600 mb-1">Total Transacciones</p>
-              <p className="text-3xl font-bold text-blue-600">
+              <p className="text-base font-bold text-blue-700 mb-1">Total Transacciones</p>
+              <p className="text-2xl font-bold text-blue-600">
                 {metricsLoading ? (
                   <span className="animate-pulse">...</span>
                 ) : metricsError ? (
@@ -88,15 +82,15 @@ export const DashboardHomePage: React.FC = () => {
                 )}
               </p>
             </div>
-            <div className="text-4xl">📊</div>
           </div>
         </Card>
 
-        <Card padding="md" hover>
-          <div className="flex items-center justify-between">
+        <Card padding="md" hover className="bg-green-50 border border-green-200">
+          <div className="flex items-center gap-3">
+            <div className="text-3xl">💰</div>
             <div>
-              <p className="text-sm text-gray-600 mb-1">ROI Anual</p>
-              <p className="text-3xl font-bold text-green-600">
+              <p className="text-base font-bold text-green-700 mb-1">ROI Anual</p>
+              <p className="text-2xl font-bold text-green-600">
                 {metricsLoading ? (
                   <span className="animate-pulse">...</span>
                 ) : metricsError ? (
@@ -106,15 +100,15 @@ export const DashboardHomePage: React.FC = () => {
                 )}
               </p>
             </div>
-            <div className="text-4xl">💰</div>
           </div>
         </Card>
 
-        <Card padding="md" hover>
-          <div className="flex items-center justify-between">
+        <Card padding="md" hover className="bg-purple-50 border border-purple-200">
+          <div className="flex items-center gap-3">
+            <div className="text-3xl">👥</div>
             <div>
-              <p className="text-sm text-gray-600 mb-1">Clientes Únicos</p>
-              <p className="text-3xl font-bold text-purple-600">
+              <p className="text-base font-bold text-purple-700 mb-1">Clientes Únicos</p>
+              <p className="text-2xl font-bold text-purple-600">
                 {metricsLoading ? (
                   <span className="animate-pulse">...</span>
                 ) : metricsError ? (
@@ -126,15 +120,15 @@ export const DashboardHomePage: React.FC = () => {
                 )}
               </p>
             </div>
-            <div className="text-4xl">👥</div>
           </div>
         </Card>
 
-        <Card padding="md" hover>
-          <div className="flex items-center justify-between">
+        <Card padding="md" hover className="bg-orange-50 border border-orange-200">
+          <div className="flex items-center gap-3">
+            <div className="text-3xl">✅</div>
             <div>
-              <p className="text-sm text-gray-600 mb-1">Casos Completados</p>
-              <p className="text-3xl font-bold text-orange-600">
+              <p className="text-base font-bold text-orange-700 mb-1">Casos Completados</p>
+              <p className="text-2xl font-bold text-orange-600">
                 {metricsLoading ? (
                   <span className="animate-pulse">...</span>
                 ) : metricsError ? (
@@ -146,71 +140,11 @@ export const DashboardHomePage: React.FC = () => {
                 )}
               </p>
             </div>
-            <div className="text-4xl">✅</div>
           </div>
         </Card>
       </div>
 
       {/* Quick Access to Use Cases */}
-      <Card>
-        <Card.Header>
-          <h2 className="text-xl font-semibold text-gray-800">
-            Casos de Uso - Acceso Rápido
-          </h2>
-        </Card.Header>
-        <Card.Body>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Button
-              variant="primary"
-              fullWidth
-              onClick={() => navigate('/casos/horarios')}
-              leftIcon={<span>🕐</span>}
-            >
-              Patrones Horarios
-            </Button>
-            <Button
-              variant="outline"
-              fullWidth
-              disabled
-              leftIcon={<span>📅</span>}
-            >
-              Control Caducidad (Próximamente)
-            </Button>
-            <Button
-              variant="outline"
-              fullWidth
-              disabled
-              leftIcon={<span>💰</span>}
-            >
-              Gestión Precios (Próximamente)
-            </Button>
-            <Button
-              variant="outline"
-              fullWidth
-              disabled
-              leftIcon={<span>👥</span>}
-            >
-              Identificación Clientes (Próximamente)
-            </Button>
-            <Button
-              variant="outline"
-              fullWidth
-              disabled
-              leftIcon={<span>📦</span>}
-            >
-              Seguimiento Inventario (Próximamente)
-            </Button>
-            <Button
-              variant="outline"
-              fullWidth
-              disabled
-              leftIcon={<span>💳</span>}
-            >
-              Métodos de Pago (Próximamente)
-            </Button>
-          </div>
-        </Card.Body>
-      </Card>
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -218,7 +152,8 @@ export const DashboardHomePage: React.FC = () => {
         {/* Estado del Sistema */}
         <Card>
           <Card.Header>
-            <h2 className="text-xl font-semibold text-gray-800">
+            <h2 className="text-xl font-bold text-green-700 flex items-center gap-2">
+              <span className="inline-block w-5 h-5 bg-green-500 rounded-full mr-1"></span>
               Estado del Sistema
             </h2>
           </Card.Header>
@@ -248,126 +183,9 @@ export const DashboardHomePage: React.FC = () => {
             </div>
           </Card.Body>
         </Card>
-
-        {/* Quick Actions */}
-        <Card>
-          <Card.Header>
-            <h2 className="text-xl font-semibold text-gray-800">
-              Acciones Rápidas
-            </h2>
-          </Card.Header>
-          <Card.Body>
-            <div className="space-y-3">
-              <Button 
-                variant="primary" 
-                fullWidth
-                leftIcon={<span>📊</span>}
-                onClick={() => navigate('/casos/horarios')}
-              >
-                Ver Patrones Horarios
-              </Button>
-              <Button 
-                variant="success" 
-                fullWidth
-                leftIcon={<span>📈</span>}
-              >
-                Generar Reporte
-              </Button>
-              <Button 
-                variant="outline" 
-                fullWidth
-                leftIcon={<span>⚙️</span>}
-              >
-                Configurar Alertas
-              </Button>
-              <Button 
-                variant="secondary" 
-                fullWidth
-                onClick={() => setIsModalOpen(true)}
-                leftIcon={<span>ℹ️</span>}
-              >
-                Ver Información del Sistema
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
       </div>
 
       {/* Progress Section */}
-      <Card>
-        <Card.Header>
-          <h2 className="text-xl font-semibold text-gray-800">
-            Progreso de Refactorización
-          </h2>
-        </Card.Header>
-        <Card.Body>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Badge variant="success">✓</Badge>
-                <span className="text-sm">Backend Refactorizado</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="success">✓</Badge>
-                <span className="text-sm">Caso Horarios Backend</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="success">✓</Badge>
-                <span className="text-sm">Frontend Shared Utilities</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="success">✓</Badge>
-                <span className="text-sm">Caso Horarios Frontend</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="success">✓</Badge>
-                <span className="text-sm">React Router Configurado</span>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Badge variant="success">✓</Badge>
-                <span className="text-sm">API Endpoints Nuevos</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="success">✓</Badge>
-                <span className="text-sm">Hooks TanStack Query</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="warning">⏳</Badge>
-                <span className="text-sm">Caso Caducidad</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="default">○</Badge>
-                <span className="text-sm">Casos Restantes (5)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="default">○</Badge>
-                <span className="text-sm">Documentación Frontend</span>
-              </div>
-            </div>
-          </div>
-        </Card.Body>
-        <Card.Footer>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">
-              Completado: Caso Horarios (14%)
-            </span>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline">
-                Ver Detalles
-              </Button>
-              <Button 
-                size="sm" 
-                variant="primary"
-                onClick={() => navigate('/casos/horarios')}
-              >
-                Ver Caso Horarios
-              </Button>
-            </div>
-          </div>
-        </Card.Footer>
-      </Card>
 
       {/* Modal de Información */}
       <Modal

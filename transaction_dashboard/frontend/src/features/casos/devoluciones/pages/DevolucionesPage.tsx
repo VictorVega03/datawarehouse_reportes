@@ -65,12 +65,10 @@ export function DevolucionesPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Caso 7: Control de Devoluciones
+              <h1 className="text-3xl font-bold text-blue-700 mb-1">
+                <span className="font-bold text-blue-700">Caso 7:</span> <span className="text-gray-900 font-bold">Control de Devoluciones</span>
               </h1>
-              <p className="text-gray-600">
-                Análisis de devoluciones y detección de patrones sospechosos
-              </p>
+              <p className="text-xl text-gray-700 font-semibold mb-2">Análisis de devoluciones y detección de patrones sospechosos</p>
               
               {/* Nota informativa */}
               <div className="mt-3 flex items-center gap-2 text-sm text-blue-600">
@@ -162,19 +160,20 @@ export function DevolucionesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Devoluciones Recientes */}
           {data.recentReturns && data.recentReturns.length > 0 && (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="bg-blue-50 rounded-lg shadow p-6">
+              <h3 className="text-lg font-bold text-blue-700 mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 Últimas Devoluciones
               </h3>
               <div className="space-y-3">
                 {data.recentReturns.slice(0, 5).map((ret, index) => (
                   <div
                     key={`return-${ret.id}-${index}`}
-                    className="border-b border-gray-200 pb-3 last:border-0"
+                    className="border-b border-blue-200 pb-3 last:border-0 hover:bg-blue-100 rounded transition-colors"
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-900">
+                        <p className="text-sm font-bold text-blue-700">
                           {ret.producto}
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
@@ -182,7 +181,7 @@ export function DevolucionesPage() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-gray-900">
+                        <p className="text-sm font-bold text-blue-700">
                           {ret.monto}
                         </p>
                         <p className="text-xs text-gray-500">
@@ -197,86 +196,40 @@ export function DevolucionesPage() {
           )}
 
           {/* Recomendaciones o Estado */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          {/* Eliminado div duplicado, solo dejar el card mejorado */}
+          <div className="bg-green-50 rounded-lg shadow p-6">
+            <h3 className="text-lg font-bold text-green-700 mb-4 flex items-center gap-2">
+              <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
               Estado del Sistema
             </h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 text-green-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
+                  <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Sistema Activo
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Monitoreo de devoluciones en tiempo real
-                  </p>
+                  <p className="text-sm font-bold text-green-700">Sistema Activo</p>
+                  <p className="text-xs text-gray-500 mt-1">Monitoreo de devoluciones en tiempo real</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 text-blue-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
+                  <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Detección Automática
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Identificación de patrones sospechosos activada
-                  </p>
+                  <p className="text-sm font-bold text-blue-700">Detección Automática</p>
+                  <p className="text-xs text-gray-500 mt-1">Identificación de patrones sospechosos activada</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 text-purple-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                  <svg className="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Control de Calidad
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Análisis de motivos y tendencias activo
-                  </p>
+                  <p className="text-sm font-bold text-purple-700">Control de Calidad</p>
+                  <p className="text-xs text-gray-500 mt-1">Análisis de motivos y tendencias activo</p>
                 </div>
               </div>
             </div>

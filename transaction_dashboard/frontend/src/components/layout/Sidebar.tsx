@@ -12,64 +12,57 @@ export function Sidebar() {
     {
       id: 'home',
       name: 'Dashboard',
-      icon: '📊',
+      color: 'bg-blue-500',
       enabled: true,
       path: '/'
     },
     {
       id: 'caso1',
       name: 'Patrones Horarios',
-      icon: '⏰',
+      color: 'bg-indigo-500',
       enabled: true,
-      status: 'completado',
       path: '/casos/horarios'
     },
     {
       id: 'caso2',
       name: 'Control de Caducidad',
-      icon: '📦',
+      color: 'bg-green-500',
       enabled: true,
-      status: 'completado',
       path: '/casos/caducidad'
     },
     {
       id: 'caso3',
       name: 'Gestión de Precios',
-      icon: '💰',
+      color: 'bg-orange-500',
       enabled: true,
-      status: 'próximamente',
       path: '/casos/precios'
     },
     {
       id: 'caso4',
       name: 'Identificación de Clientes',
-      icon: '👥',
+      color: 'bg-purple-500',
       enabled: true,
-      status: 'próximamente',
       path: '/casos/clientes'
     },
     {
       id: 'caso5',
       name: 'Seguimiento de Inventario',
-      icon: '📋',
+      color: 'bg-yellow-500',
       enabled: true,
-      status: 'próximamente',
       path: '/casos/inventario'
     },
     {
       id: 'caso6',
       name: 'Métodos de Pago',
-      icon: '💳',
+      color: 'bg-pink-500',
       enabled: true,
-      status: 'próximamente',
       path: '/casos/pagos'
     },
     {
       id: 'caso7',
       name: 'Control de Devoluciones',
-      icon: '↩️',
+      color: 'bg-red-500',
       enabled: true,
-      status: 'próximamente',
       path: '/casos/devoluciones'
     }
   ]
@@ -84,32 +77,70 @@ export function Sidebar() {
   return (
     <aside
       className={`
-        bg-white border-r border-gray-200 shadow-lg
+        bg-gradient-to-br from-blue-50 via-white to-blue-100 border-r border-gray-200 shadow-xl
         transition-all duration-300 ease-in-out
-        flex-shrink-0 h-screen overflow-hidden
+        flex-shrink-0 h-screen flex flex-col
         ${isExpanded ? 'w-64' : 'w-20'}
       `}
     >
-      <div className="h-full flex flex-col">
+      <div className="flex-1 flex flex-col">
         {/* Header */}
         <div className={`
-          flex items-center p-4 border-b border-gray-200 bg-gradient-to-r from-blue-500 to-blue-600
+          flex items-center p-4 border-b border-gray-200 bg-gradient-to-r from-blue-500 to-blue-600 relative
           ${isExpanded ? 'justify-between' : 'justify-center'}
         `}>
           {isExpanded && (
             <div className="flex items-center space-x-2">
-              <span className="text-2xl">📈</span>
-              <h2 className="text-lg font-bold text-white whitespace-nowrap">Analytics</h2>
+              <span className="inline-block">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="bar1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#34D399" />
+                      <stop offset="100%" stop-color="#3B82F6" />
+                    </linearGradient>
+                    <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#A78BFA" />
+                      <stop offset="100%" stop-color="#34D399" />
+                    </linearGradient>
+                    <linearGradient id="bar3" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#F472B6" />
+                      <stop offset="100%" stop-color="#A78BFA" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="3" y="12" width="3" height="7" rx="1" fill="url(#bar1)" />
+                  <rect x="8" y="8" width="3" height="11" rx="1" fill="url(#bar2)" />
+                  <rect x="13" y="4" width="3" height="15" rx="1" fill="url(#bar3)" />
+                </svg>
+              </span>
+              <h2 className="text-xl font-extrabold text-white whitespace-nowrap tracking-wide drop-shadow-lg">Analytics</h2>
             </div>
           )}
-          
           {!isExpanded && (
-            <span className="text-2xl">📈</span>
+            <span className="inline-block">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bar1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#34D399" />
+                    <stop offset="100%" stop-color="#3B82F6" />
+                  </linearGradient>
+                  <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#A78BFA" />
+                    <stop offset="100%" stop-color="#34D399" />
+                  </linearGradient>
+                  <linearGradient id="bar3" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#F472B6" />
+                    <stop offset="100%" stop-color="#A78BFA" />
+                  </linearGradient>
+                </defs>
+                <rect x="3" y="12" width="3" height="7" rx="1" fill="url(#bar1)" />
+                <rect x="8" y="8" width="3" height="11" rx="1" fill="url(#bar2)" />
+                <rect x="13" y="4" width="3" height="15" rx="1" fill="url(#bar3)" />
+              </svg>
+            </span>
           )}
-
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 rounded-lg hover:bg-blue-400 transition-colors text-white"
+            className="p-2 rounded-lg hover:bg-blue-400 transition-colors text-white focus:outline-none focus:ring-2 focus:ring-blue-300"
             aria-label={isExpanded ? "Contraer menú" : "Expandir menú"}
             title={isExpanded ? "Contraer menú" : "Expandir menú"}
           >
@@ -127,75 +158,94 @@ export function Sidebar() {
         {/* Navegación */}
         <nav className="flex-1 overflow-y-auto p-4">
           <ul className="space-y-2">
-            {menuItems.map((item) => {
+            {menuItems.map((item, idx) => {
               const active = isActive(item.path)
-              
+              // Separador visual después del Dashboard
+              if (idx === 1 && isExpanded) {
+                return [
+                  <li key="divider" className="my-2">
+                    <hr className="border-t border-gray-200" />
+                  </li>,
+                  <li key={item.id}>
+                    {item.enabled ? (
+                      <Link
+                        to={item.path}
+                        className={`
+                          w-full flex items-center rounded-xl transition-all group
+                          ${isExpanded ? 'justify-start p-3' : 'justify-center p-3'}
+                          ${active
+                            ? 'bg-blue-500 text-white shadow-lg border-2 border-blue-400'
+                            : 'hover:bg-blue-100 text-gray-700'
+                          }
+                        `}
+                        style={{ fontFamily: 'Inter, sans-serif', fontSize: isExpanded ? '1rem' : '0.95rem', letterSpacing: '0.01em' }}
+                        title={!isExpanded ? item.name : undefined}
+                      >
+                        <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
+                          <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
+                          {isExpanded && (
+                            <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
+                          )}
+                        </div>
+                      </Link>
+                    ) : (
+                      <div
+                        className={`
+                          w-full flex items-center rounded-xl opacity-50 cursor-not-allowed text-gray-400
+                          ${isExpanded ? 'justify-start p-3' : 'justify-center p-3'}
+                        `}
+                        style={{ fontFamily: 'Inter, sans-serif', fontSize: isExpanded ? '1rem' : '0.95rem', letterSpacing: '0.01em' }}
+                        title={!isExpanded ? `${item.name} (Próximamente)` : undefined}
+                      >
+                        <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
+                          <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
+                          {isExpanded && (
+                            <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </li>
+                ]
+              }
               return (
                 <li key={item.id}>
                   {item.enabled ? (
                     <Link
                       to={item.path}
                       className={`
-                        w-full flex items-center rounded-lg transition-all group
-                        ${isExpanded ? 'justify-between p-3' : 'justify-center p-3'}
+                        w-full flex items-center rounded-xl transition-all group
+                        ${isExpanded ? 'justify-start p-3' : 'justify-center p-3'}
                         ${active
-                          ? 'bg-blue-500 text-white shadow-md'
-                          : 'hover:bg-gray-100 text-gray-700'
+                          ? 'bg-blue-500 text-white shadow-lg border-2 border-blue-400'
+                          : 'hover:bg-blue-100 text-gray-700'
                         }
                       `}
+                      style={{ fontFamily: 'Inter, sans-serif', fontSize: isExpanded ? '1rem' : '0.95rem', letterSpacing: '0.01em' }}
                       title={!isExpanded ? item.name : undefined}
                     >
                       <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
-                        <span className="text-xl flex-shrink-0">{item.icon}</span>
+                        <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
                         {isExpanded && (
-                          <span className="font-medium text-sm whitespace-nowrap">{item.name}</span>
+                          <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
                         )}
                       </div>
-
-                      {isExpanded && item.status && (
-                        <span
-                          className={`
-                            text-xs px-2 py-1 rounded-full font-semibold flex-shrink-0
-                            ${item.status === 'completado'
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-yellow-100 text-yellow-800'
-                            }
-                            ${active ? 'bg-white bg-opacity-30 text-white' : ''}
-                          `}
-                        >
-                          {item.status === 'completado' ? '✓' : '⏳'}
-                        </span>
-                      )}
-
-                      {!isExpanded && item.status === 'completado' && (
-                        <span className="absolute right-2 top-2">
-                          <span className="flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                          </span>
-                        </span>
-                      )}
                     </Link>
                   ) : (
                     <div
                       className={`
-                        w-full flex items-center rounded-lg opacity-50 cursor-not-allowed text-gray-400
-                        ${isExpanded ? 'justify-between p-3' : 'justify-center p-3'}
+                        w-full flex items-center rounded-xl opacity-50 cursor-not-allowed text-gray-400
+                        ${isExpanded ? 'justify-start p-3' : 'justify-center p-3'}
                       `}
+                      style={{ fontFamily: 'Inter, sans-serif', fontSize: isExpanded ? '1rem' : '0.95rem', letterSpacing: '0.01em' }}
                       title={!isExpanded ? `${item.name} (Próximamente)` : undefined}
                     >
                       <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
-                        <span className="text-xl flex-shrink-0">{item.icon}</span>
+                        <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
                         {isExpanded && (
-                          <span className="font-medium text-sm whitespace-nowrap">{item.name}</span>
+                          <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
                         )}
                       </div>
-
-                      {isExpanded && item.status && (
-                        <span className="text-xs px-2 py-1 rounded-full font-semibold bg-yellow-100 text-yellow-800 flex-shrink-0">
-                          ⏳
-                        </span>
-                      )}
                     </div>
                   )}
                 </li>
@@ -204,39 +254,7 @@ export function Sidebar() {
           </ul>
         </nav>
 
-        {/* Footer */}
-        {isExpanded && (
-          <div className="p-4 border-t border-gray-200">
-            <div className="bg-blue-100 p-3 rounded-lg">
-              <p className="text-xs font-semibold text-blue-900 mb-1">
-                Progreso General
-              </p>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-blue-700 whitespace-nowrap">
-                  2 de 7 casos completados
-                </span>
-                <span className="text-xs font-bold text-blue-900">29%</span>
-              </div>
-              <div className="w-full bg-blue-200 rounded-full h-2">
-                <div 
-                  className="bg-blue-500 h-2 rounded-full transition-all duration-500" 
-                  style={{ width: '29%' }} 
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!isExpanded && (
-          <div className="p-4 border-t border-gray-200 flex justify-center">
-            <div className="relative">
-              <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                29%
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
-            </div>
-          </div>
-        )}
+        {/* ...existing code... */}
       </div>
     </aside>
   )

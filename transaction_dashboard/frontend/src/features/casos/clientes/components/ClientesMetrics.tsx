@@ -30,7 +30,7 @@ export function ClientesMetrics({ metrics }: ClientesMetricsProps) {
       {/* Tarjeta 1: Clientes Identificados */}
       <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-4xl">👥</span>
+          <span className="text-lg font-semibold">Identificados</span>
           <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
             {metrics.porcentajeIdentificados}%
           </span>
@@ -47,7 +47,7 @@ export function ClientesMetrics({ metrics }: ClientesMetricsProps) {
       {/* Tarjeta 2: Transacciones Anónimas */}
       <div className="bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl p-6 text-white shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-4xl">❓</span>
+          <span className="text-lg font-semibold">Anónimos</span>
           <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
             Anónimos
           </span>
@@ -64,7 +64,7 @@ export function ClientesMetrics({ metrics }: ClientesMetricsProps) {
       {/* Tarjeta 3: Clientes VIP Platinum */}
       <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-4xl">💎</span>
+          <span className="text-lg font-semibold">VIP Platinum</span>
           <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
             50+ compras
           </span>
@@ -81,7 +81,7 @@ export function ClientesMetrics({ metrics }: ClientesMetricsProps) {
       {/* Tarjeta 4: Clientes VIP Gold */}
       <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl p-6 text-white shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-4xl">⭐</span>
+          <span className="text-lg font-semibold">VIP Gold</span>
           <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
             20-49 compras
           </span>

@@ -11,7 +11,7 @@ export function SuspiciousPatternsTable({ patterns }: Props) {
   if (!patterns || patterns.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-bold text-blue-700 mb-4">
           Patrones Sospechosos Detectados
         </h3>
         <div className="text-center py-8">
@@ -51,10 +51,10 @@ export function SuspiciousPatternsTable({ patterns }: Props) {
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-bold text-blue-700">
           Patrones Sospechosos Detectados
         </h3>
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-200 text-red-800">
           {patterns.length} detectados
         </span>
       </div>
@@ -63,22 +63,22 @@ export function SuspiciousPatternsTable({ patterns }: Props) {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">
                 Transaction ID
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">
                 Fecha/Hora
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">
                 Monto
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">
                 Método Pago
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">
                 Tiempo
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">
                 Riesgo
               </th>
             </tr>
@@ -87,7 +87,7 @@ export function SuspiciousPatternsTable({ patterns }: Props) {
             {patterns.map((pattern, index) => (
               <tr
                 key={`${pattern.transactionId}-${index}`}
-                className="hover:bg-gray-50"
+                className="hover:bg-blue-50 transition-colors duration-150"
               >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {pattern.transactionId.substring(0, 12)}...
@@ -95,7 +95,7 @@ export function SuspiciousPatternsTable({ patterns }: Props) {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {formatDate(pattern.fecha)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">
                   {pattern.total}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -106,7 +106,7 @@ export function SuspiciousPatternsTable({ patterns }: Props) {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRiskBadgeColor(
+                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold shadow ${getRiskBadgeColor(
                       pattern.nivelRiesgo
                     )}`}
                   >

@@ -45,7 +45,7 @@ export const MovimientosPieChart: React.FC<Props> = ({ data }) => {
   return (
     <Card>
       <Card.Header>
-        <h3 className="text-lg font-semibold">Distribución de Movimientos</h3>
+  <h3 className="text-lg font-semibold">Distribución de Movimientos</h3>
         <p className="text-sm text-gray-600">Entradas vs Salidas de Inventario</p>
       </Card.Header>
       <Card.Body>

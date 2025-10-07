@@ -18,12 +18,10 @@ export function DevolucionesMetrics({ metrics }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
       {/* Total Devoluciones */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-red-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">
-              Total Devoluciones
-            </p>
+            <p className="text-sm font-bold text-red-700">Total Devoluciones</p>
             <p className="text-2xl font-bold text-gray-900 mt-2">
               {formatNumber(metrics.totalDevoluciones)}
             </p>
@@ -47,12 +45,10 @@ export function DevolucionesMetrics({ metrics }: Props) {
       </div>
 
       {/* Monto Total */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-orange-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">
-              Monto Total Devuelto
-            </p>
+            <p className="text-sm font-bold text-orange-700">Monto Total Devuelto</p>
             <p className="text-2xl font-bold text-gray-900 mt-2">
               {metrics.montoTotal}
             </p>
@@ -76,12 +72,10 @@ export function DevolucionesMetrics({ metrics }: Props) {
       </div>
 
       {/* Promedio por Devolución */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-blue-50 rounded-lg shadow p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-600">
-              Promedio por Devolución
-            </p>
+            <p className="text-sm font-bold text-blue-700">Promedio por Devolución</p>
             <p className="text-2xl font-bold text-gray-900 mt-2">
               {metrics.promedioMonto}
             </p>

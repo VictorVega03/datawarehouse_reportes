@@ -1,6 +1,3 @@
-// backend/src/features/casos/clientes/clientes.controller.ts
-// Controller para el Caso de Uso 4: Identificación de Clientes
-
 import { Request, Response } from 'express'
 import { clientesService } from '../services/clientes.service'
 

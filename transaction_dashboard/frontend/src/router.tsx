@@ -10,16 +10,6 @@ import { InventarioPage } from './features/casos/inventario/pages/InventarioPage
 import { PagosPage } from './features/casos/pagos'
 import { DevolucionesPage } from './features/casos/devoluciones'
 
-/**
- * Router Configuration for Transaction Dashboard
- * 
- * Structure:
- * - / → Dashboard home with metrics and quick access
- * - /casos/horarios → Hourly patterns analysis
- * - /casos/caducidad → Expiration control (coming soon)
- * - /casos/precios → Price management (coming soon)
- * - ... more use cases
- */
 export const router = createBrowserRouter([
   {
     path: '/',
