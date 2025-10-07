@@ -80,7 +80,7 @@ export function Sidebar() {
         bg-gradient-to-br from-blue-50 via-white to-blue-100 border-r border-gray-200 shadow-xl
         transition-all duration-300 ease-in-out
         flex-shrink-0 h-screen flex flex-col
-        ${isExpanded ? 'w-64' : 'w-20'}
+        ${isExpanded ? 'w-72' : 'w-24'}
       `}
     >
       <div className="flex-1 flex flex-col">
@@ -184,7 +184,7 @@ export function Sidebar() {
                         <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
                           <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
                           {isExpanded && (
-                            <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
+                            <span className="font-semibold text-base whitespace-nowrap tracking-tight">{`${idx}. ${item.name}`}</span>
                           )}
                         </div>
                       </Link>
@@ -200,7 +200,7 @@ export function Sidebar() {
                         <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
                           <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
                           {isExpanded && (
-                            <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
+                            <span className="font-semibold text-sm whitespace-nowrap tracking-tight">{`${idx}. ${item.name}`}</span>
                           )}
                         </div>
                       </div>
@@ -226,7 +226,10 @@ export function Sidebar() {
                     >
                       <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
                         <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
-                        {isExpanded && (
+                        {isExpanded && idx > 0 && (
+                          <span className="font-semibold text-base whitespace-nowrap tracking-tight">{`${idx}. ${item.name}`}</span>
+                        )}
+                        {isExpanded && idx === 0 && (
                           <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
                         )}
                       </div>
@@ -242,8 +245,11 @@ export function Sidebar() {
                     >
                       <div className={`flex items-center ${isExpanded ? 'space-x-3' : ''}`}>
                         <span className={`inline-block w-3 h-3 rounded-full ${item.color} flex-shrink-0 shadow-md`}></span>
-                        {isExpanded && (
-                          <span className="font-semibold text-base whitespace-nowrap tracking-tight">{item.name}</span>
+                        {isExpanded && idx > 0 && (
+                          <span className="font-semibold text-base whitespace-nowrap tracking-tight">{`${idx}. ${item.name}`}</span>
+                        )}
+                        {isExpanded && idx === 0 && (
+                          <span className="font-semibold text-sm whitespace-nowrap tracking-tight">{item.name}</span>
                         )}
                       </div>
                     </div>

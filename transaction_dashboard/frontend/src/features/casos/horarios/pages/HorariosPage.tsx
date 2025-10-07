@@ -48,7 +48,7 @@ export const HorariosPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-8">
+  <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -68,7 +68,7 @@ export const HorariosPage: React.FC = () => {
       <HorariosMetrics data={data} />
 
       {/* Gráfico Principal */}
-      <Card>
+  <Card color="blue" hover>
         <Card.Header>
           <div className="flex items-center justify-between">
             <div>
@@ -92,7 +92,7 @@ export const HorariosPage: React.FC = () => {
       </Card>
 
       {/* Tabla de Datos */}
-      <Card>
+  <Card color="gray">
         <Card.Header>
           <h2 className="text-xl font-semibold text-gray-800">
               Análisis Detallado por Horarios
@@ -108,7 +108,7 @@ export const HorariosPage: React.FC = () => {
       {/* Insights y Recomendaciones */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Insights */}
-        <Card className="border-blue-200 shadow-md bg-gradient-to-br from-blue-50 to-white">
+  <Card color="blue">
           <Card.Header>
             <h3 className="text-lg font-bold text-blue-700 tracking-tight">
               Insights Clave
@@ -157,7 +157,7 @@ export const HorariosPage: React.FC = () => {
         </Card>
 
         {/* Recomendaciones */}
-        <Card className="border-green-200 shadow-md bg-gradient-to-br from-green-50 to-white">
+  <Card color="green">
           <Card.Header>
             <h3 className="text-lg font-bold text-green-700 tracking-tight">
               Recomendaciones
